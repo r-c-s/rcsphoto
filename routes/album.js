@@ -1,26 +1,34 @@
 var _      = require('underscore');
 var cradle = require('cradle');
 
-var dbInfo   = JSON.parse(require('fs').readFileSync('dbinfo.json').toString());
-var database = new(cradle.Connection)(dbInfo.host, 443, {
-  auth: { 
-    username : dbInfo.username, 
-    password : dbInfo.password
-  },
-  cache : false
-}).database(dbInfo.database);
+/*******************************************************************************
+ * 
+ */
+function dbConnection() {
+  var dbInfo = JSON.parse(require('fs').readFileSync('dbinfo.json').toString());
+  return new(cradle.Connection)({
+    host : dbInfo.host, 
+    port : dbInfo.port, 
+    auth: { 
+      username : dbInfo.username, 
+      password : dbInfo.password
+    },
+    secure : true,
+    cache  : true
+  }).database(dbInfo.database);
+}
 
 /*******************************************************************************
  * 
  */
 module.exports.getAlbums = function(req, res) {
-  database.all(function(error, data) {
+  dbConnection().all(function(error, data) {
     if (error) { 
       console.warn(error); 
       return res.render('error', { message : JSON.stringify(error, null, ' ') });
     }
 
-    database.get(_.map(data.rows, function(row) { return row.id; }), function(error, data) {
+    dbConnection().get(_.map(data.rows, function(row) { return row.id; }), function(error, data) {
       if (error) { 
         console.warn(error); 
         return res.render('error', { message : JSON.stringify(error, null, ' ') });
@@ -35,7 +43,7 @@ module.exports.getAlbums = function(req, res) {
  * 
  */
 module.exports.getAlbum = function(req, res) {
-  database.get(req.params.albumId, function(error, album) {
+  dbConnection().get(req.params.albumId, function(error, album) {
     if (error) { 
       console.warn(error); 
       return res.render('error', { message : JSON.stringify(error, null, ' ') });

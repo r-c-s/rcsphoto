@@ -1,5 +1,6 @@
 {
   "host"     : "r-c-s.cloudant.com",
+  "port"     : "443",
   "username" : "lphicelycondifissounteda",
   "password" : "vJpNR11vPTiXB2GwudeqiF6X",
   "database" : "rcsphoto"
