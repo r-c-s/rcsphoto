@@ -1,3 +1,3 @@
 ## RCS Photography
 
-A website for showcasing my photography
+Node.js website for showcasing my photography

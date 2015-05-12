@@ -1,5 +1,5 @@
 {
-  "name": "RCS Photography",
+  "name": "rcsphoto",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -7,10 +7,11 @@
   },
   "dependencies": {
     "express"       : "4.*",
-    "serve-favison" : "*",
+    "serve-favicon" : "*",
     "body-parser"   : "*",
     "multer"        : "*",
     "jade"          : "*", 
     "cradle"        : "*",
+    "underscore"    : "*"
   }
 }

@@ -1,0 +1,12 @@
+extends layout
+
+block title
+  title= (error || 'Error!') + ' | RCS Photography'
+  
+block content 
+  div(class='container-fluid')
+    div(class='page-header page-header-background')
+      h1 #{ error || 'Error!' }
+        br
+        small #{ message || 'An error as occurred.' }
+
