@@ -16,7 +16,7 @@ block content
     - for (var i = 0; i < album.images.length; i++) { 
       - var image = album.images[i];
       - if (image) {
-        span(id='thumb'+i, class='noselect thumb scale', style='background-image: url('+image.thumb+')', onclick='select('+i+')', ondragstart='return false;')
+        a(href='#'+i, id='thumb'+i, class='noselect thumb scale', style='background-image: url('+image.thumb+')', ondragstart='return false;')
       - }
     - } 
         
@@ -36,7 +36,7 @@ block content
     div(class='arrow opacity vertically-align right', id='next') 
       a(class='fa fa-angle-right')
   
-  script.
-    var images = !{ JSON.stringify(album.images) }; 
     
   script(src='/js/album.js')
+  script.
+    new Album(!{ JSON.stringify(album.images) }); 
