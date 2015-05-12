@@ -53,12 +53,12 @@ $(window)
    
     var boundingWidth;
 
-    if      (width >= 1200) boundingWidth = (100/7)+'%';
-    else if (width >=  992) boundingWidth = (100/6)+'%';
-    else if (width >=  768) boundingWidth = (100/5)+'%';
-    else if (width >=  480) boundingWidth = (100/4)+'%';
-    else if (width >=  320) boundingWidth = (100/3)+'%';
-    else                    boundingWidth = (100/2)+'%';
+    if      (width > 1200) boundingWidth = (100/7)+'%';
+    else if (width >  992) boundingWidth = (100/6)+'%';
+    else if (width >  768) boundingWidth = (100/5)+'%';
+    else if (width >  480) boundingWidth = (100/4)+'%';
+    else if (width >  320) boundingWidth = (100/3)+'%';
+    else                   boundingWidth = (100/2)+'%';
                        
     $('.thumb').each(function() {  
       $(this).css('width', boundingWidth);
