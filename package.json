@@ -1,0 +1,16 @@
+{
+  "name": "RCS Photography",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express"       : "4.*",
+    "serve-favison" : "*",
+    "body-parser"   : "*",
+    "multer"        : "*",
+    "jade"          : "*", 
+    "cradle"        : "*",
+  }
+}

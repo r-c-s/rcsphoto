@@ -1,0 +1,150 @@
+
+-//-REQUIRES JQUERY------------------------------------------------------------------------------------------
+
+script.
+  var $ = jQuery;
+  
+  var ALERT_FADEIN_MILLIS  = 200;
+  var ALERT_FADEOUT_MILLIS = 500;
+
+  function closeAlert(id, callback) {
+    var selection = $(id ? id : ".alert");
+    if (selection.length > 0) {
+      selection.fadeOut(ALERT_FADEOUT_MILLIS, callback); 
+    }
+  }
+  
+  function openAlert(id, callback) {
+    var selection = $(id ? id : ".alert");
+    if (selection.length > 0) {
+      selection.fadeIn(ALERT_FADEIN_MILLIS, callback);
+    }
+  }
+
+-//-REQUIRES BOOTSTRAP 3-------------------------------------------------------------------------------------
+  
+style.
+  .alert {
+    position       : relative;
+    width          : 100%;
+    display        : inline-block;
+    margin         : 0px 0px 0px 0px; 
+    padding        : 10px 30px 10px 35px;
+  }
+  
+  .alert strong {
+    font-size      : 18px;
+    opacity        : 0.5;
+    top            : 9px;
+    left           : 10px;
+    position       : absolute;
+  }
+
+  .alert .message {
+    display        : inline; 
+    position       : relative;
+    margin         : 0px;
+    padding        : 0px;
+    bottom         : 1px;
+  }
+  
+  .alert .glyphicon.glyphicon-remove {
+    position       : absolute;
+    opacity        : 0.3;
+    top            : 7px; 
+    right          : 10px;
+  }
+  
+  .alert .glyphicon.glyphicon-remove:hover {
+    opacity        : 0.2;
+    cursor         : pointer;
+  }
+
+-//----------------------------------------------------------------------------------------------------------
+
+mixin alertBox(alertOptions, message, dismissible)
+  - if (message)
+  
+    div(style="display:none", id=alertOptions.id)
+      span(class=alertOptions.class + (dismissible ? " alert-dismissable" : ""))
+        strong
+          span(class=alertOptions.glyphicon)
+        span(class="alert message") #{ message } 
+
+        - if (dismissible)
+          span(class='glyphicon glyphicon-remove', onclick="closeAlert('#" + alertOptions.id + "')")
+
+-//----------------------------------------------------------------------------------------------------------      
+
+mixin errorAlertBox(message, dismissible)
+  +alertBox({
+    id        : "error", 
+    class     : "alert alert-danger",
+    glyphicon : "glyphicon glyphicon-remove-circle" }, message, dismissible)
+    
+  script.
+    openAlert("#error");
+
+-//----------------------------------------------------------------------------------------------------------
+      
+mixin infoAlertBox(message, dismissible)
+  +alertBox({
+    id        : "info",    
+    class     : "alert alert-info",    
+    glyphicon : "glyphicon glyphicon-info-sign" }, message, dismissible)
+  
+  script.
+    openAlert("#info");
+
+-//----------------------------------------------------------------------------------------------------------
+
+mixin successAlertBox(message, dismissible)
+  +alertBox({
+    id        : "success", 
+    class     : "alert alert-success", 
+    glyphicon : "glyphicon glyphicon-ok-circle" }, message, dismissible)
+    
+  script.
+    openAlert("#success");
+
+-//----------------------------------------------------------------------------------------------------------
+      
+mixin warningAlertBox(message, dismissible)
+  +alertBox({
+    id        : "warning", 
+    class     : "alert alert-warning", 
+    glyphicon : "glyphicon glyphicon-ban-circle" }, message, dismissible)
+  
+  script.
+    openAlert("#warning");
+
+-//----------------------------------------------------------------------------------------------------------
+
+mixin labelDefault(text)
+  span(class="label label-default") text
+  
+-//----------------------------------------------------------------------------------------------------------
+
+mixin labelPrimary(text)
+  span(class="label label-primary") text
+
+-//----------------------------------------------------------------------------------------------------------
+
+mixin labelSuccess(text)
+  span(class="label label-success") text
+
+-//----------------------------------------------------------------------------------------------------------
+
+mixin labelInfo(text)
+  span(class="label label-info") text
+
+-//----------------------------------------------------------------------------------------------------------
+
+mixin labelWarning(text)
+  span(class="label label-warning") text
+
+-//----------------------------------------------------------------------------------------------------------
+
+mixin labelDanger(text)
+  span(class="label label-danger") text
+

@@ -1,0 +1,12 @@
+extends layout
+
+block title
+  title= '404 | ' + content.projectName
+  
+block content 
+  div(class='container-fluid')
+    div(class='page-header page-header-background')
+      h1 Error: 404
+        br
+        small #{ message || 'The page you are looking for does not exist.' }
+

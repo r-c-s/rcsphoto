@@ -1,0 +1,108 @@
+html {
+  height : 100%;
+}
+
+body {
+  background-color : white;
+  margin           : 0px;
+  padding          : 0px;
+  height           : 100%; 
+}
+
+a {
+  color : #00849b;
+}
+
+a:hover {
+  color           : #00b8e5;
+  text-decoration : none;
+}
+
+a:focus {
+  outline : 0;
+}
+
+button:focus {
+  outline : 0;
+}
+
+button::-moz-focus-inner {
+  border : 0;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.container-fluid { 
+   max-width:1600px;
+}
+
+ 
+.header-logo-left {
+  float   : left;
+  height  : 50px;
+  display : table;
+  padding : 0px 10px 0px 0px;
+}
+
+.header-logo-left a {
+  padding        : 2px 0px 0px 0px !important;
+  display        : table-cell;
+  vertical-align : middle;
+}
+
+.header-logo-left img {
+  max-height : 45px;
+  margin     : 0px;
+}
+
+
+
+
+
+.header-logo-right {
+  float   : right;
+  height  : 50px;
+  display : table;
+  padding : 0px 0px 0px 10px;
+}
+
+.header-logo-right a {
+  padding        : 2px 0px 0px 0px !important;
+  display        : table-cell;
+  vertical-align : middle;
+}
+
+.header-logo-right img {
+  max-height : 45px;
+  margin     : auto;
+}
+
+.navbar {
+  margin : 0px;
+}
+
+.fill {
+  position           : relative;
+  width              : 100%;
+  min-height         : 100%;
+  background-color   : transparent;
+  padding            : 0px 0px 0px 0px;
+}
+  
+.content {  
+  background-color : transparent;
+  width            : 100%;
+  padding          : 0px 0px 0px 0px;
+}
+ 
+
+@media only screen and (min-width:  768px) and (max-width:  991px) { ... }
+@media only screen and (min-width:  992px) and (max-width: 1199px) { ... }
+@media only screen and (min-width: 1200px) { ... }

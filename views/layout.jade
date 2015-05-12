@@ -1,0 +1,42 @@
+doctype html
+
+html
+
+  head
+    block head
+      block title
+        title= "RCS Photography"
+        
+      link(rel='shortcut icon', href='public/img/favicon.ico', type='image/x-icon')
+      link(rel='icon'           href='public/img/favicon.ico', type='image/x-icon')
+      
+      link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+      link(rel='stylesheet', href='/font-awesome/css/font-awesome.min.css')
+      link(rel='stylesheet', href='/css/style.css')
+      link(rel='stylesheet', href='/css/normalize.css') 
+        
+      script(src='/js/jquery-1.11.3.min.js')
+      script(src='/bootstrap/js/bootstrap.min.js')
+      
+  body   
+    nav(class='navbar navbar-default navbar-static-top', role='navigation')
+      div(class='container-fluid') 
+        div(class='navbar-header') 
+          a(class='navbar-brand', href='/') RCS Photography
+
+    div(class='fill')
+      div(class='content')
+        block content
+
+     
+
+          
+          
+          
+          
+          
+          
+          
+          
+          
+         
