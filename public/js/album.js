@@ -117,15 +117,21 @@ function Album(images) {
       
       location.hash = i;
       image = images[i];  
-      
-      
+
+      $('#image').animate({
+        'opacity' : 0
+      }, 1000);
+
       $('#image').load(function() { 
+        $('#image').unbind().stop().animate({
+          'opacity' : 1
+        }, 500);
+        
         $('#index').text((i+1) + " of " + images.length);
         $('#url').text("Full size").attr('href', image.full);
         
         selecting = false;
-      }).attr('src', image.medium);
-      
+      }).attr('src', image.large);
       
       scrollTo(i);
 
