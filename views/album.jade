@@ -16,7 +16,7 @@ block content
     - for (var i = 0; i < album.images.length; i++) { 
       - var image = album.images[i];
       - if (image && image.thumb) {
-        div(href='#'+i, id='thumb'+i, class='noselect thumb scale', ondragstart='return false;')
+        a(href='#'+i, id='thumb'+i, class='noselect thumb scale', ondragstart='return false;')
           img(class='lazy', data-original=image.thumb)
       - }
     - } 

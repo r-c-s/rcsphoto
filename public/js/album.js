@@ -102,6 +102,7 @@ function Album(images) {
   }
 
   function unselect() { 
+    $('#info').hide(); 
     $('#overlay').hide();
     $('#image').attr('src', '');
     $('#thumb'+getIndex()).removeClass('active');
@@ -120,12 +121,9 @@ function Album(images) {
       selecting = true;
       location.hash = i;
       
-      $('#image').animate({
-        'opacity' : 0
-      }, 1000);
-      
-      $('#image').attr('src', selectSize(image)).load(function() { 
-        $('#image').stop().unbind().animate({
+      var buffer = new Image();
+      buffer.onload = function() { 
+        $('#image').stop().attr('src', buffer.src).animate({
           'opacity' : 1
         }, 500);
         
@@ -133,7 +131,12 @@ function Album(images) {
         $('#url').text("Full size").attr('href', image.full);
         
         selecting = false;
-      });
+      }
+      buffer.src = selectSize(image);
+      
+      $('#image').animate({
+        'opacity' : 0
+      }, 1000);
       
       scrollTo(i);
 
@@ -142,6 +145,8 @@ function Album(images) {
       } 
       
       $('#thumb'+i).addClass('active');
+      
+      $('#info').show(); 
       $('#overlay').show(); 
     }
   }
