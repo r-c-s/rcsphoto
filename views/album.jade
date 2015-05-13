@@ -16,7 +16,8 @@ block content
     - for (var i = 0; i < album.images.length; i++) { 
       - var image = album.images[i];
       - if (image && image.thumb) {
-        a(href='#'+i, id='thumb'+i, class='noselect thumb scale', style='background-image: url('+image.thumb+')', ondragstart='return false;')
+        div(href='#'+i, id='thumb'+i, class='noselect thumb scale', ondragstart='return false;')
+          img(class='lazy', data-original=image.thumb)
       - }
     - } 
         
@@ -37,6 +38,15 @@ block content
       a(class='fa fa-angle-right')
   
     
+  script(src='/js/jquery.lazyload.min.js')
+  script(src='/js/jquery.scrolltop.min.js')  
+  script.
+    $(function() {
+      $('img.lazy').lazyload({
+        effect : 'fadeIn'
+      })
+    });
+  
   script(src='/js/album.js')
   script.
     new Album(!{ JSON.stringify(album.images) }); 

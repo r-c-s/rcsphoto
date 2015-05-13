@@ -18,7 +18,6 @@ app.use(express.static(__dirname + '/public'));
 app.use(require('multer')());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
-app.locals.pretty = true;
 
 app.use(router);
 
