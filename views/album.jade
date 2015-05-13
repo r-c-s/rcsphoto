@@ -15,7 +15,7 @@ block content
   div(class='container-fluid', id='thumbsContainer')
     - for (var i = 0; i < album.images.length; i++) { 
       - var image = album.images[i];
-      - if (image) {
+      - if (image && image.thumb) {
         a(href='#'+i, id='thumb'+i, class='noselect thumb scale', style='background-image: url('+image.thumb+')', ondragstart='return false;')
       - }
     - } 

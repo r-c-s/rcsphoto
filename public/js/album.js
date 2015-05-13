@@ -1,13 +1,10 @@
 function Album(images) {
-  var current  = 0;
-  var pressing = false;
 
-  $(document)
-    .ready(function() { 
-      $('#overlay').hide();
-      $(window).trigger('resize');
-      $(window).trigger('hashchange');
-    }); 
+  $(document).ready(function() {     
+    $('#overlay').hide();
+    $(window).trigger('resize');
+    $(window).trigger('hashchange');
+  }); 
 
   $('#image').click(next);
   $('#next').click(next);
@@ -15,57 +12,47 @@ function Album(images) {
   $('#overlay').click(unselect);
   $('#close').click(unselect);
 
-  $('body')
-    .keydown(function(e) {
-      if ($('#overlay').is(":visible") && !pressing) {
-        pressing = true;
-        if (e.keyCode == 27) {
-          unselect();
-        }
-        if (e.keyCode == 37) {
-          prev();
-        }
-        if (e.keyCode == 39) {
-          next();
-        }
+
+  var pressing = false;
+  $('body').keydown(function(e) {
+    if ($('#overlay').is(":visible") && !pressing) {
+      pressing = true;
+      if (e.keyCode == 27) {
+        unselect();
       }
-    })
-    .keyup(function(e) {
-      pressing = false;
-    });
-
-
-  $(window).on('hashchange', function(){ 
-    var index = location.hash.slice(1);
-    if (index == '') {
-      return;
+      if (e.keyCode == 37) {
+        prev();
+      }
+      if (e.keyCode == 39) {
+        next();
+      }
     }
-    if (+index >= 0 && +index < images.length) {
-      select(+index);
-    } 
+  });
+  $('body').keyup(function(e) {
+    pressing = false;
   });
 
 
-  $(window)
-    .resize(function() {
-      $('#image').trigger('load');
-      
-      var width = $('#thumbsContainer').width(); 
-     
-      var boundingWidth;
 
-      if      (width > 1200) boundingWidth = (100/7)+'%';
-      else if (width >  992) boundingWidth = (100/6)+'%';
-      else if (width >  768) boundingWidth = (100/5)+'%';
-      else if (width >  480) boundingWidth = (100/4)+'%';
-      else if (width >  320) boundingWidth = (100/3)+'%';
-      else                   boundingWidth = (100/2)+'%';
-                         
-      $('.thumb').each(function() {  
-        $(this).css('width', boundingWidth);
-        $(this).css('height', $(this).css('width'));
-      });
+  $(window).resize(function() {
+    $('#image').trigger('load');
+    
+    var width = $('#thumbsContainer').width(); 
+   
+    var boundingWidth;
+
+    if      (width > 1200) boundingWidth = (100/7)+'%';
+    else if (width >  992) boundingWidth = (100/6)+'%';
+    else if (width >  768) boundingWidth = (100/5)+'%';
+    else if (width >  480) boundingWidth = (100/4)+'%';
+    else if (width >  320) boundingWidth = (100/3)+'%';
+    else                   boundingWidth = (100/2)+'%';
+                       
+    $('.thumb').each(function() {  
+      $(this).css('width', boundingWidth);
+      $(this).css('height', $(this).css('width'));
     });
+  });
 
 
 
@@ -89,32 +76,70 @@ function Album(images) {
     e.stopPropagation();
   });
 
+  $(window).on('hashchange', function(){  
+    select(getIndex());
+  });
+  
+  
+  function getIndex() {
+    var hash = location.hash.slice(1);
+    if ($.isNumeric(hash) && Math.floor(hash) == hash) {
+      return +hash;
+    }
+    else {
+      return -1;
+    }
+  }
+
   function next() {
-    select((current+1) % images.length); 
+    select((getIndex()+1) % images.length); 
   }
 
   function prev() {
-    select((current-1) + ((current-1) < 0 ? images.length : 0));
+    select((getIndex()-1) + ((getIndex()-1) < 0 ? images.length : 0));
   }
 
   function unselect() { 
-    location.hash = '';
     $('#overlay').hide();
     $('#image').attr('src', '');
-    $('#thumb'+current).removeClass('active');
+    $('#thumb'+getIndex()).removeClass('active');
+    location.hash = '';
   }
 
+  var selecting = false;
   function select(i) {  
+    if (selecting) {
+      return;
+    }
+    
     if (images[i]) {
-      current = i;
-      location.hash = i;
-      image   = images[current];
-
-      $('#overlay').show(); 
-      $('#image').attr('src', image.medium);
-      $('#index').text((i+1) + " of " + images.length);
-      $('#url').text("Full size").attr('href', image.full);
+      selecting = true;
       
+      location.hash = i;
+      image = images[i];  
+      
+      
+      $('#image').load(function() { 
+        $('#index').text((i+1) + " of " + images.length);
+        $('#url').text("Full size").attr('href', image.full);
+        
+        selecting = false;
+      }).attr('src', image.medium);
+      
+      
+      scrollTo(i);
+
+      for (var j = 0; j < images.length; j++) {
+        $('#thumb'+j).removeClass('active');
+      } 
+      
+      $('#thumb'+i).addClass('active');
+      $('#overlay').show(); 
+    }
+  }
+  
+  function scrollTo(i) {
+    if (images[i]) { 
       if ($('#thumb'+i).offset().top < $(window).scrollTop() + 51) {
         $('html, body').animate({ scrollTop : $('#thumb'+i).offset().top }, 200, 'swing');
       }
@@ -123,10 +148,6 @@ function Album(images) {
       if (diff > 0) { 
         $('html, body').animate({ scrollTop : $(window).scrollTop() + diff }, 200, 'swing');
       }
-      
-      for (var j = 0; j < images.length; j++) {
-        $('#thumb'+j).attr('class', 'thumb scale ' + (j == i ? 'active' : ''))
-      } 
     }
   }
 }
