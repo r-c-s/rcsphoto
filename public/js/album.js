@@ -109,6 +109,7 @@ function Album(images) {
         
         $('#index').text((i+1) + " of " + images.length);
         $('#url').text("Full size").attr('href', image.full);
+        $('#info').show(); 
       }
       buffer.src = selectSize(image);
       
@@ -121,10 +122,8 @@ function Album(images) {
       for (var j = 0; j < images.length; j++) {
         $('#thumb'+j).removeClass('active');
       } 
-      
       $('#thumb'+i).addClass('active');
       
-      $('#info').show(); 
       $('#overlay').show(); 
     }
   }
