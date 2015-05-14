@@ -51,39 +51,22 @@
   top              : 0;
   left             : 0;
   width            : 100%;
-  height           : 100vh; 
+  height           : 100%; 
   background-color : rgba(0,0,0,0.95);
   text-align       : center;
   display          : none;
 }   
 
 #imageContainer {     
-  position            : relative;
-  display             : inline-block;
-  min-width           : 100px;
-  max-width           : 80%;
-  width               : auto;
-  height              : 100vh; 
-  background-color    : white;
-  padding             : 10px;  
-  background-image    : url('../img/ajax-loader.gif');
+  display             : inline-block; 
+  width               : 80%;  
+  height              : 100%; 
+  padding             : 20px;  
   background-position : center center; 
   background-repeat   : no-repeat; 
+  background-size     : contain;
+  background-origin   : content-box;
 }
-
-#image {  
-  margin     : 0px;
-  max-width  : 100%;
-  max-height : calc(100vh - 100px);
-  width      : auto;
-  height     : auto;
-}  
-
-#info {
-  height     : 80px;
-  width      : 100%;
-  text-align : left;
-} 
 
 
 .arrow {  
@@ -101,12 +84,17 @@
 } 
 
 .vertically-align {
-  top       : 50%;
-  transform : translateY(-50%);
+  position : relative;
+  top      : 50%;
+  -webkit-transform : translateY(-50%);
+  -ms-transform     : translateY(-50%);
+  transform         : translateY(-50%);
 }
 .left {
-  left : 0px;
+  position : absolute;
+  left     : 0px;
 }
 .right {
-  right : 0px;
+  position : absolute;
+  right    : 0px;
 }

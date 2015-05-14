@@ -8,7 +8,7 @@ function Album(images) {
   
   
 
-  $('#image').click(next);
+  $('#imageContainer').click(next);
   $('#next').click(next);
   $('#prev').click(prev);
   $('#overlay').click(unselect);
@@ -35,6 +35,8 @@ function Album(images) {
   });
 
   $(window).resize(function() {
+    resizeOverlay();
+    
     var width = $('#thumbsContainer').width(); 
    
     var boundingWidth;
@@ -54,12 +56,8 @@ function Album(images) {
 
   $('#imageContainer').click(function(e){ 
     e.stopPropagation();
-  });
-
-  $('#image').click(function(e){ 
-    e.stopPropagation();
-  });
-   
+  }); 
+  
   $('.arrow').click(function(e){ 
     e.stopPropagation();
   });
@@ -88,9 +86,7 @@ function Album(images) {
   }
 
   function unselect() { 
-    $('#info').hide(); 
-    $('#overlay').hide();
-    $('#image').attr('src', '');
+    $('#info').hide();  
     $('#thumb'+getIndex()).removeClass('active');
     location.hash = '';
   }
@@ -103,19 +99,18 @@ function Album(images) {
       
       var buffer = new Image();
       buffer.onload = function() { 
-        $('#image').stop().attr('src', buffer.src).animate({
-          'opacity' : 1
-        }, 500);
+        $('#imageContainer')
+          .css('background-image', 'url("'+ buffer.src+'")')
+          .css('background-size', 'contain');
         
-        $('#index').text((i+1) + " of " + images.length);
-        $('#url').text("Full size").attr('href', image.full);
-        $('#info').show(); 
+        $('#overlay').show(); 
+        resizeOverlay();
       }
       buffer.src = selectSize(image);
-      
-      $('#image').animate({
-        'opacity' : 0
-      }, 1000);
+
+      $('#imageContainer')
+        .css('background-image', 'url("../img/ajax-loader.gif")')
+        .css('background-size', 'auto');
       
       scrollTo(i);
 
@@ -123,14 +118,15 @@ function Album(images) {
         $('#thumb'+j).removeClass('active');
       } 
       $('#thumb'+i).addClass('active');
-      
-      $('#overlay').show(); 
     }
+  }
+  
+  function resizeOverlay() {
+    $('#overlay').css('height', $(window).height()); 
   }
   
   function selectSize(image) {
     var dimension = Math.max($(window).width(), $(window).height());
-    
     if      (dimension > 1024) return image.large;
     else if (dimension >  512) return image.medium;
     else                       return image.small;
