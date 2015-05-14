@@ -34,11 +34,7 @@ function Album(images) {
     pressing = false;
   });
 
-
-
   $(window).resize(function() {
-    $('#image').trigger('load');
-    
     var width = $('#thumbsContainer').width(); 
    
     var boundingWidth;
@@ -55,16 +51,6 @@ function Album(images) {
       $(this).css('height', $(this).css('width'));
     });
   });
-
-
-
-//  $("#image")
-//    .load(function() { 
-//      //$('#image').css('opacity', 1);
-//    })
-//    .each(function() { 
-//      if(this.complete) $(this).load();
-//    });
 
   $('#imageContainer').click(function(e){ 
     e.stopPropagation();
@@ -109,16 +95,10 @@ function Album(images) {
     location.hash = '';
   }
 
-  var selecting = false;
   function select(i) {  
-    if (selecting) {
-      return;
-    }
-    
     image = images[i];  
     
-    if (image) {
-      selecting = true;
+    if (image) { 
       location.hash = i;
       
       var buffer = new Image();
@@ -129,8 +109,6 @@ function Album(images) {
         
         $('#index').text((i+1) + " of " + images.length);
         $('#url').text("Full size").attr('href', image.full);
-        
-        selecting = false;
       }
       buffer.src = selectSize(image);
       
