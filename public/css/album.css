@@ -27,6 +27,11 @@
           transform: scale(1.1);
 }
 
+.albumThumb {
+  text-align : center;
+  display    : inline-block;
+}
+
 #thumbsContainer {
   
 }

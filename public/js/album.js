@@ -128,9 +128,8 @@ function Album(images) {
   
   function selectSize(image) {
     var dimension = Math.max($(window).width(), $(window).height());
-    if      (dimension > 1024) return image.large;
-    else if (dimension >  512) return image.medium;
-    else                       return image.small;
+    if (dimension >  512) return image.medium;
+    else                  return image.small;
   }
   
   function scrollTo(i) {
