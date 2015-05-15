@@ -6,13 +6,28 @@ function Album(images) {
     $(window).trigger('hashchange');
   }); 
   
-  
-
-  $('#imageContainer').click(next);
+  $('#imageContainer img').click(next);
   $('#next').click(next);
   $('#prev').click(prev);
+  $('#imageContainer').click(unselect);
   $('#overlay').click(unselect);
   $('#close').click(unselect);
+  
+  $('#imageContainer img').click(function(e){ 
+    e.stopPropagation();
+  }); 
+
+  $('#imageContainer').click(function(e){ 
+    e.stopPropagation();
+  }); 
+  
+  $('.arrow').click(function(e){ 
+    e.stopPropagation();
+  });
+
+  $(window).on('hashchange', function(){  
+    select(getIndex());
+  });
 
 
   var pressing = false;
@@ -35,8 +50,6 @@ function Album(images) {
   });
 
   $(window).resize(function() {
-    resizeOverlay();
-    
     var width = $('#thumbsContainer').width(); 
    
     var boundingWidth;
@@ -53,18 +66,8 @@ function Album(images) {
       $(this).css('height', $(this).css('width'));
     });
   });
-
-  $('#imageContainer').click(function(e){ 
-    e.stopPropagation();
-  }); 
   
-  $('.arrow').click(function(e){ 
-    e.stopPropagation();
-  });
 
-  $(window).on('hashchange', function(){  
-    select(getIndex());
-  });
   
   
   function getIndex() {
@@ -86,7 +89,7 @@ function Album(images) {
   }
 
   function unselect() { 
-    $('#info').hide();  
+    $('#overlay').hide();
     $('#thumb'+getIndex()).removeClass('active');
     location.hash = '';
   }
@@ -96,21 +99,14 @@ function Album(images) {
     
     if (image) { 
       location.hash = i;
+
+      $('#imageContainer img').hide();
       
       var buffer = new Image();
       buffer.onload = function() { 
-        $('#imageContainer')
-          .css('background-image', 'url("'+ buffer.src+'")')
-          .css('background-size', 'contain');
-        
-        $('#overlay').show(); 
-        resizeOverlay();
+        $('#imageContainer img').attr('src', buffer.src).show(); 
       }
-      buffer.src = selectSize(image);
-
-      $('#imageContainer')
-        .css('background-image', 'url("../img/ajax-loader.gif")')
-        .css('background-size', 'auto');
+      buffer.src = selectSize(image); 
       
       scrollTo(i);
 
@@ -118,12 +114,10 @@ function Album(images) {
         $('#thumb'+j).removeClass('active');
       } 
       $('#thumb'+i).addClass('active');
+      
+      $('#overlay').show(); 
     }
-  }
-  
-  function resizeOverlay() {
-    $('#overlay').css('height', $(window).height()); 
-  }
+  } 
   
   function selectSize(image) {
     var dimension = Math.max($(window).width(), $(window).height());

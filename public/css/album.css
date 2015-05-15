@@ -61,11 +61,18 @@
   display             : inline-block; 
   width               : 80%;  
   height              : 100%; 
-  padding             : 20px;  
+  padding             : 10px;  
+}
+
+.centered-background {
   background-position : center center; 
   background-repeat   : no-repeat; 
-  background-size     : contain;
-  background-origin   : content-box;
+  background-size     : auto;
+}
+
+#imageContainer img {
+  max-height : 100%;
+  max-width  : 100%;
 }
 
 

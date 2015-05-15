@@ -17,7 +17,7 @@ block content
       - var image = album.images[i];
       - if (image && image.thumb) {
         a(href='#'+i, id='thumb'+i, class='noselect thumb scale', ondragstart='return false;')
-          img(class='lazy', data-original=image.thumb)
+          img(class='lazy vertically-align', data-original=image.thumb)
       - }
     - } 
         
@@ -25,9 +25,8 @@ block content
     div(class='arrow opacity right', id='close') 
       a(class='fa fa-times')
  
-    div(id='imageContainer') 
-      div(class='vertically-align')
-        img(id='image') 
+    div(id='imageContainer', class='centered-background', style='background-image:url("../img/ajax-loader.gif")') 
+      img(class='vertically-align') 
         
     div(class='arrow opacity vertically-align left', id='prev') 
       a(class='fa fa-angle-left')
