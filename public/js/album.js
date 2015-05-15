@@ -100,11 +100,18 @@ function Album(images) {
     if (image) { 
       location.hash = i;
 
-      $('#imageContainer img').hide();
+      $('#imageContainer img').stop().css({
+        'opacity' : 0
+      });
       
       var buffer = new Image();
       buffer.onload = function() { 
-        $('#imageContainer img').attr('src', buffer.src).show(); 
+        $('#imageContainer img')
+          .attr('src', buffer.src)
+          .stop()
+          .animate({
+            'opacity' : 1
+          }, 800);
       }
       buffer.src = selectSize(image); 
       
