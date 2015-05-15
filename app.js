@@ -28,6 +28,8 @@ router.use(function(req, res, next) {
 
 var album = require("./routes/album");
 
+router.get('/about', function(req, res) { res.render('about'); });
+
 router.get('/',          album.getAlbums);
 router.get('/:albumId?', album.getAlbum); 
 
