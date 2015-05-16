@@ -9,14 +9,14 @@ block content
       
   div(id='albumThumbsContainer')
     - for (var i = 0; i < albums.length; i++) { 
-      div(class='albumThumb')
-        div(class='thumbnail')
-          a(href='/'+albums[i]._id)
-            img(src=albums[i].images[0].thumb)
-            div(class='caption')
-              h3 #{ albums[i].albumInfo.name }
+      a(href='/'+albums[i]._id)
+        div(class='albumThumb panel panel-default')
+          div(class="panel-heading")
+            a(href='/'+albums[i]._id) #{ albums[i].albumInfo.name }
+          div(class="panel-body", style='padding:0px;')
+            a(href='/'+albums[i]._id)
+              div(class='albumThumbImg', style='background-image:url(\"'+albums[i].images[0].small+'\")')
     - } 
-      
       
   script.
     $(window).resize(function() {
@@ -24,14 +24,21 @@ block content
      
       var boundingWidth;
   
-      if      (width > 1200) boundingWidth = (100/5)+'%';
-      else if (width >  992) boundingWidth = (100/4)+'%';
-      else if (width >  768) boundingWidth = (100/3)+'%';
-      else                   boundingWidth = (100/2)+'%';
+      if      (width > 1200) boundingWidth = (100/6)+'%';
+      else if (width >  992) boundingWidth = (100/5)+'%';
+      else if (width >  768) boundingWidth = (100/4)+'%';
+      else if (width >  480) boundingWidth = (100/3)+'%';
+      else if (width >  320) boundingWidth = (100/2)+'%';
+      else                   boundingWidth = (100/1)+'%';
                          
       $('.albumThumb').each(function() {  
         $(this).css('width', boundingWidth); 
-      });
+        $(this).css('height', $(this).css('width')); 
+      });                           
+      $('.albumThumbImg').each(function() {  
+        $(this).css('width', '100%'); 
+        $(this).css('height', $(this).css('width').replace('px','')-40); 
+      });           
     });
     
     $(document).ready(function() {     
