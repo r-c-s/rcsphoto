@@ -4,13 +4,10 @@ block title
   title= 'RCS Photography'
 
 block content   
-  link(rel='stylesheet', href='/css/album.css')
-
-  div(class='container')
-    div(class='page-header')
-      h1 Albums
+  div(class='page-header')
+    h1 Albums
       
-  div(id='albumThumbsContainer', class='container')
+  div(id='albumThumbsContainer')
     - for (var i = 0; i < albums.length; i++) { 
       div(class='albumThumb')
         div(class='thumbnail')
