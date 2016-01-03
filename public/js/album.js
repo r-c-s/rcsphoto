@@ -91,7 +91,9 @@ function Album(images) {
   function unselect() { 
     $('#overlay').hide();
     $('#thumb'+getIndex()).removeClass('active');
-    location.hash = '';
+    var yScroll = document.body.scrollTop;
+    window.location.hash = '';
+    document.body.scrollTop = yScroll;
   }
 
   function select(i) {  
