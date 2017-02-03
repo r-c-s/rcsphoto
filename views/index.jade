@@ -12,10 +12,10 @@ block content
       a(href='/'+albums[i]._id)
         div(class='albumThumb panel panel-default')
           div(class="panel-heading")
-            a(href='/'+albums[i]._id) #{ albums[i].albumInfo.name }
+            a(href='/'+albums[i]._id) #{ albums[i].name }
           div(class="panel-body", style='padding:0px;')
             a(href='/'+albums[i]._id)
-              div(class='albumThumbImg', style='background-image:url(\"'+albums[i].images[0].small+'\")')
+              div(class='albumThumbImg', style='background-image:url(\"'+albums[i].baseUrl+'/small/'+albums[i].coverImage+'")')
     - } 
       
   script.

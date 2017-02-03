@@ -9,7 +9,6 @@
     "express"       : "4.*",
     "serve-favicon" : "*",
     "body-parser"   : "*",
-    "multer"        : "*",
     "jade"          : "*", 
     "cradle"        : "*",
     "underscore"    : "*"

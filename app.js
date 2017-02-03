@@ -15,7 +15,6 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(favicon('public/img/favicon.ico'));
 app.use(express.static(__dirname + '/public'));
-app.use(require('multer')());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 

@@ -1,11 +1,11 @@
 var _      = require('underscore');
 var cradle = require('cradle');
+var dbInfo = JSON.parse(require('fs').readFileSync('dbinfo.json').toString());
 
 /*******************************************************************************
  * 
  */
 function dbConnection() {
-  var dbInfo = JSON.parse(require('fs').readFileSync('dbinfo.json').toString());
   return new(cradle.Connection)({
     host : dbInfo.host, 
     port : dbInfo.port, 
