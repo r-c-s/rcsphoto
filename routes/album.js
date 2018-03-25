@@ -34,7 +34,10 @@ module.exports.getAlbums = function(req, res) {
         return res.render('error', { message : JSON.stringify(error, null, ' ') });
       }
       
-      res.render('index', { albums : _.map(data.rows, function(row) { return row.doc; }) });
+      res.render('index', { 
+        albums : _.map(data.rows, function(row) { return row.doc; })
+           .sort(function(a, b) { return a.sortOrder - b.sortOrder; })
+      });
     });
   });
 };
