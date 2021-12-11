@@ -9,13 +9,13 @@ block content
       
   div(id='albumThumbsContainer')
     - for (var i = 0; i < albums.length; i++) { 
-      a(href='/'+albums[i]._id)
+      a(href='/'+albums[i].id)
         div(class='albumThumb panel panel-default')
           div(class="panel-heading")
-            a(href='/'+albums[i]._id) #{ albums[i].name }
+            a(href='/'+albums[i].id) #{ albums[i].name }
           div(class="panel-body", style='padding:0px;')
-            a(href='/'+albums[i]._id)
-              div(class='albumThumbImg', style='background-image:url(\"'+albums[i].baseUrl+'/small/'+albums[i].coverImage+'")')
+            a(href='/'+albums[i].id)
+              div(class='albumThumbImg', style='background-image:url(\"'+albums[i].coverImage+'")')
     - } 
       
   script.
