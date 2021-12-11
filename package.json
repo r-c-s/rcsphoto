@@ -6,11 +6,12 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express"       : "4.*",
-    "serve-favicon" : "*",
-    "body-parser"   : "*",
-    "jade"          : "*", 
-    "cradle"        : "*",
-    "underscore"    : "*"
+    "body-parser": "*",
+    "cradle": "*",
+    "express": "4.*",
+    "jade": "*",
+    "serve-favicon": "*",
+    "underscore": "*",
+    "vcap_services": "^0.7.1"
   }
 }

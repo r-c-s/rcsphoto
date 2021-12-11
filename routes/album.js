@@ -1,26 +1,21 @@
 var _      = require('underscore');
 var cradle = require('cradle');
-var dbInfo = JSON.parse(require('fs').readFileSync('dbinfo.json').toString());
+var vcapServices = require('vcap_services');
+var credentials = vcapServices.findCredentials({ service: 'cloudantNoSQLDB' });
 
-/*******************************************************************************
- * 
- */
 function dbConnection() {
   return new(cradle.Connection)({
-    host : dbInfo.host, 
-    port : dbInfo.port, 
+    host : credentials.host, 
+    port : credentials.port, 
     auth: { 
-      username : dbInfo.username, 
-      password : dbInfo.password
+      username : credentials.username, 
+      password : credentials.password
     },
     secure : true,
     cache  : true
-  }).database(dbInfo.database);
+  }).database("rcsphoto");
 }
 
-/*******************************************************************************
- * 
- */
 module.exports.getAlbums = function(req, res) {
   dbConnection().all(function(error, data) {
     if (error) { 
@@ -42,9 +37,6 @@ module.exports.getAlbums = function(req, res) {
   });
 };
 
-/*******************************************************************************
- * 
- */
 module.exports.getAlbum = function(req, res) {
   dbConnection().get(req.params.albumId, function(error, album) {
     if (error) { 
