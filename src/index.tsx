@@ -14,7 +14,7 @@ const {
 const serviceConfig: ServiceConfig = {
   imageBaseUrl,
   databaseName,
-  credentials: JSON.parse(VCAP_SERVICES).cloudantNoSQLDB.credentials
+  credentials: JSON.parse(VCAP_SERVICES).cloudantNoSQLDB[0].credentials
 };
 
 ReactDOM.render(
