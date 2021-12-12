@@ -8,13 +8,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const {
   REACT_APP_IMAGE_BASE_URL: imageBaseUrl,
   REACT_APP_DATABASE: databaseName,
-  VCAP_SERVICES
+  REACT_APP_DB_CREDENTIALS
 } = process.env;
 
 const serviceConfig: ServiceConfig = {
   imageBaseUrl,
   databaseName,
-  credentials: JSON.parse(VCAP_SERVICES).cloudantNoSQLDB[0].credentials
+  credentials: JSON.parse(REACT_APP_DB_CREDENTIALS)
 };
 
 ReactDOM.render(
