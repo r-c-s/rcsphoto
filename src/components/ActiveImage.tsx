@@ -5,10 +5,12 @@ import { Image } from '../services/RcsPhotoApi';
 interface Props {
   image: Image;
   onClose: () => void;
+  onNext: () => void;
+  onPrevious: () => void;
 }
 
 function ActiveImage(props: Props) {
-  const { image, onClose } = props; 
+  const { image, onClose, onNext, onPrevious } = props; 
   const [ready, setReady] = useState<boolean>();
   
   const selectBestSize = (image: Image) => {

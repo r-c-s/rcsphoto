@@ -24,13 +24,32 @@ function AlbumPage(props: Props) {
     fetchAndSetAlbum();
   }, [ albumId ]);
 
+  const findNext = () => {
+    const { images } = album;
+    const currentIndex = images.indexOf(activeImage);
+    const nextIndex = (currentIndex + 1) % images.length;
+    return images[nextIndex];
+  }
+
+  const findPrevious = () => {
+    const { images } = album;
+    const currentIndex = images.indexOf(activeImage);
+    const previousIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
+    return images[previousIndex]; 
+  }
+
   if (album) {
     return <div id="album-page">
       <div className="container">
         <PageHeader title={album.name} lines={[`${album.images.length} images`]}/>
         {
           activeImage &&
-          <ActiveImage image={activeImage} onClose={() => setActiveImage(undefined)}/>
+          <ActiveImage 
+            key={JSON.stringify(activeImage)}
+            image={activeImage} 
+            onClose={() => setActiveImage(undefined)}
+            onNext={() => setActiveImage(findNext())}
+            onPrevious={() => setActiveImage(findPrevious())}/>
         }
         <div className="thumbs-container">
           {
