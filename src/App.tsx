@@ -11,11 +11,7 @@ interface Props {
   serviceConfig: ServiceConfig
 }
 
-interface State {
-  itemsPerRow: number;
-}
-
-export default class App extends React.Component<Props, State> {
+export default class App extends React.Component<Props, {}> {
 
   private readonly rcsPhotoApi;
 
@@ -28,10 +24,8 @@ export default class App extends React.Component<Props, State> {
   }
 
   render() {
-    const { itemsPerRow } = this.state;
-
     return <div id="rcs-photo">
-      <BrowserRouter>
+      <BrowserRouter basename="/">
         <Nav/>
         <Routes>
           <Route path="/" element={<AlbumList service={this.rcsPhotoApi}/>}/>
