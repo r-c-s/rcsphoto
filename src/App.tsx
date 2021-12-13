@@ -25,7 +25,7 @@ export default class App extends React.Component<Props, {}> {
 
   render() {
     return <div id="rcs-photo">
-      <BrowserRouter basename="/">
+      <BrowserRouter>
         <Nav/>
         <Routes>
           <Route path="/" element={<AlbumList service={this.rcsPhotoApi}/>}/>
