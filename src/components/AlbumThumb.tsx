@@ -9,6 +9,7 @@ interface Props {
 function AlbumThumb(props: Props) {
   const { album } = props;
   const [imageContainerHeight, setImageContainerHeight] = useState<number>();
+  const [ready, setReady] = useState<boolean>();
 
   useEffect(() => {
     const element = document.getElementsByClassName('card-image-container');
@@ -28,7 +29,10 @@ function AlbumThumb(props: Props) {
           </div>
         </div>
         <div className="card-image-container" style={{ height: imageContainerHeight }}>
-          <img className="card-image-bottom" src={album.coverImage}/>
+          <img 
+            className={`${ready ? 'image-ready' : 'image-not-ready'} card-image-bottom`} 
+            src={album.coverImage} 
+            onLoad={() => setReady(true)}/>
         </div>
       </div>
     </Link>
