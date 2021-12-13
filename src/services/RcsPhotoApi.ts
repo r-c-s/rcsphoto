@@ -18,11 +18,11 @@ export interface Image {
 
 export interface ServiceConfig {
   imageBaseUrl: string,
-  databaseName: string,
   credentials: CloudantCredentials
 }
 
 export interface CloudantCredentials {
+  database: string,
   username: string,
   password: string,
   host: string,
@@ -34,7 +34,7 @@ export default class RcsPhotoApi {
 
   private cache: Album[];
 
-  private config;
+  private config: ServiceConfig;
 
   constructor(config: ServiceConfig) {
     this.config = config;
@@ -46,7 +46,7 @@ export default class RcsPhotoApi {
     }
 
     const response = await this.dbConnection()
-      .get(this.config.databaseName, '_all_docs?include_docs=true')
+      .get(this.config.credentials.database, '_all_docs?include_docs=true')
 
     this.cache = response.data.rows
       .map(row => this.enrichAlbum(row.doc))

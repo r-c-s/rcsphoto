@@ -22,8 +22,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "REACT_APP_DATABASE=\"rcsphoto\" REACT_APP_IMAGE_BASE_URL=\"http://d164y11hqgve5j.cloudfront.net\" react-scripts start",
-    "build": "REACT_APP_DATABASE=\"rcsphoto\" REACT_APP_IMAGE_BASE_URL=\"http://d164y11hqgve5j.cloudfront.net\" react-scripts build",
+    "start": "REACT_APP_IMAGE_BASE_URL=\"http://d164y11hqgve5j.cloudfront.net\" react-scripts start",
+    "build": "REACT_APP_IMAGE_BASE_URL=\"http://d164y11hqgve5j.cloudfront.net\" react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
