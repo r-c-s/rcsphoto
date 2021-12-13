@@ -20,8 +20,8 @@ class AlbumList extends React.Component<Props, State> {
     }
   }
 
-  componentDidMount = async () => {  
-    document.title = 'Albums | RCS Photography';
+  componentDidMount = async () => {
+    document.title = 'Albums | RCS Photography';  
     const albums = await this.props.service.getAlbums();
     this.setState({ albums });
   }
