@@ -167,6 +167,35 @@
         transition: opacity 0.3s;
       }
     }
+  }
 
+  @media only screen and (min-width: 320px) {
+    .responsive-width {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (min-width: 320px) {
+    .responsive-width {
+      width: 50%;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .responsive-width {
+      width: 33.3%;
+    }
+  }
+
+  @media only screen and (min-width: 992px) {
+    .responsive-width {
+      width: 25%;
+    }
+  }
+
+  @media only screen and (min-width: 1200px) {
+    .responsive-width {
+      width: 16.6%;
+    }
   }
 }

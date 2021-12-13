@@ -5,7 +5,6 @@ import PageHeader from './PageHeader';
 
 interface Props {
   service: RcsPhotoApi;
-  itemsPerRow: number;
 }
 
 interface State {
@@ -28,14 +27,13 @@ class AlbumList extends React.Component<Props, State> {
   }
 
   render() {
-    const { itemsPerRow } = this.props;
     const { albums } = this.state;
 
     return <div id="album-list">
       <div className="container" id="album-thumbs-container">
         <PageHeader title="Albums" lines={["by Raphael Corrêa"]}/>
         {  
-          albums.map(album => <AlbumThumb album={album} albumsPerRow={itemsPerRow}/>)
+          albums.map(album => <AlbumThumb album={album}/>)
         }
       </div>
     </div>;

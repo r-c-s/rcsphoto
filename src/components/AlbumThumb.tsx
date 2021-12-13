@@ -3,13 +3,12 @@ import { Album } from '../services/RcsPhotoApi';
 
 interface Props {
   album: Album;
-  albumsPerRow: number;
 }
 
 function AlbumThumb(props: Props) {
-  const { album, albumsPerRow } = props;
+  const { album } = props;
 
-  return <div className="card-container" style={{ width: `${100 / albumsPerRow}%` }}>
+  return <div className="card-container responsive-width">
     <Link to={`/albums/${album.id}`}>
       <div className="card">
         <div className="body">

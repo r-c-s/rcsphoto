@@ -6,11 +6,10 @@ import PageHeader from './PageHeader';
 
 interface Props {
   service: RcsPhotoApi;
-  itemsPerRow: number;
 }
 
 function AlbumPage(props: Props) {
-  const { service, itemsPerRow } = props;
+  const { service } = props;
   const { albumId } = useParams();
   const [ album, setAlbum ] = useState<Album>();
   const [ activeImage, setActiveImage ] = useState<Image>();
@@ -35,7 +34,7 @@ function AlbumPage(props: Props) {
         <div className="thumbs-container">
           {
             album.images.map(image => 
-              <a className="thumb scale" style={{ width: `${100 / itemsPerRow}%` }} >
+              <a className="thumb scale responsive-width">
                 <img src={image.thumb} onClick={() => setActiveImage(image)}/>
               </a>
             )
