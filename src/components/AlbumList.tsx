@@ -30,11 +30,13 @@ class AlbumList extends React.Component<Props, State> {
     const { albums } = this.state;
 
     return <div id="album-list">
-      <div className="container" id="album-thumbs-container">
-        <PageHeader title="Albums" lines={["by Raphael Corrêa"]}/>
-        {  
-          albums.map(album => <AlbumThumb album={album}/>)
-        }
+      <div className="container">
+        <div className="album-thumbs-container">
+          <PageHeader title="Albums" lines={["by Raphael Corrêa"]}/>
+          {  
+            albums.map(album => <AlbumThumb album={album}/>)
+          }
+        </div>
       </div>
     </div>;
   }
