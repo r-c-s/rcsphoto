@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import RcsPhotoApi, { Album, Image } from '../services/RcsPhotoApi';
 import ActiveImage from './ActiveImage';
+import ImageThumb from './ImageThumb';
 import PageHeader from './PageHeader';
 
 interface Props {
@@ -34,9 +35,7 @@ function AlbumPage(props: Props) {
         <div className="thumbs-container">
           {
             album.images.map(image => 
-              <a className="thumb scale responsive-width">
-                <img src={image.thumb} onClick={() => setActiveImage(image)}/>
-              </a>
+              <ImageThumb image={image} onClick={() => setActiveImage(image)}/>
             )
           }
         </div>

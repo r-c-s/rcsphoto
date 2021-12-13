@@ -18,7 +18,7 @@ function ActiveImage(props: Props) {
 
   return <div id="active-image" onClick={onClose}>
     <div className="image-container">
-      <img className={ready ? 'ready' : 'not-ready'} 
+      <img className={ready ? 'image-ready' : 'image-not-ready'} 
         src={selectBestSize(image)} 
         onLoad={() => setReady(true)}/>
     </div>

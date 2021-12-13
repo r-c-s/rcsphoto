@@ -32,6 +32,16 @@
     }
   }
 
+  .image-not-ready {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .image-ready {
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
+
   #nav {
     @extend .flex-column;
     justify-content: center;
@@ -161,16 +171,6 @@
         pointer-events: none;
         max-height: 90%;
         max-width: 90%;
-      }
-
-      .not-ready {
-        opacity: 0;
-        transition: opacity 0.3s;
-      }
-
-      .ready {
-        opacity: 1;
-        transition: opacity 0.3s;
       }
     }
   }
