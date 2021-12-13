@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Album } from '../services/RcsPhotoApi';
 
@@ -7,9 +8,17 @@ interface Props {
 
 function AlbumThumb(props: Props) {
   const { album } = props;
+  const [imageContainerHeight, setImageContainerHeight] = useState<number>();
+
+  useEffect(() => {
+    const element = document.getElementsByClassName('card-image-container');
+    const width = element[0].clientWidth;
+    const height = 2 * width / 3;
+    setImageContainerHeight(height)
+  });
 
   return <div className="card-container responsive-width">
-    <Link to={`/albums/${album.id}`}>
+    <Link to={album.id ? `/albums/${album.id}` : '/'}>
       <div className="card">
         <div className="body">
           <div className="card-title">
@@ -18,7 +27,9 @@ function AlbumThumb(props: Props) {
             </div>
           </div>
         </div>
-        <img className="card-image-bottom" src={album.coverImage}/>
+        <div className="card-image-container" style={{ height: imageContainerHeight }}>
+          <img className="card-image-bottom" src={album.coverImage}/>
+        </div>
       </div>
     </Link>
   </div>

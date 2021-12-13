@@ -16,7 +16,7 @@ class AlbumList extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      albums: []
+      albums: this.getLoadingAlbums(6)
     }
   }
 
@@ -39,6 +39,17 @@ class AlbumList extends React.Component<Props, State> {
         </div>
       </div>
     </div>;
+  }
+
+  private readonly getLoadingAlbums = (count: number): Album[] => {
+    return Array.from(Array(count).keys())
+      .map(i => ({
+        id: undefined,
+        sortOrder: undefined,
+        name: 'loading...',
+        images: [],
+        coverImage: undefined
+      }));
   }
 }
 

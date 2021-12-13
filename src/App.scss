@@ -108,9 +108,14 @@
           margin: 0;
           height: 30px;
         }
+
+        .card-image-container { 
+          @extend .loading-background;
+          background-color: lightgray;
     
-        .card-image-bottom {
-          max-width: 100%;
+          .card-image-bottom {
+            max-width: 100%;
+          }
         }
       }
     }
@@ -175,16 +180,8 @@
     }
   }
 
-  @media only screen and (min-width: 320px) {
-    .responsive-width {
-      width: 100%;
-    }
-  }
-
-  @media only screen and (min-width: 320px) {
-    .responsive-width {
-      width: 50%;
-    }
+  .responsive-width {
+    width: 50%;
   }
 
   @media only screen and (min-width: 768px) {
