@@ -46,7 +46,7 @@ class AlbumList extends React.Component<Props, State> {
       .map(i => ({
         id: undefined,
         sortOrder: undefined,
-        name: 'loading...',
+        name: '...',
         images: [],
         coverImage: undefined
       }));
