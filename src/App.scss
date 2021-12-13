@@ -1,5 +1,10 @@
 #rcs-photo {
 
+  @keyframes loading {
+    from { background-color: #eee; }
+    to { background-color: lightgray; }
+  }
+
   .loading-background {
     background-image: url("./loading.gif");
     background-position: center center; 
@@ -110,8 +115,9 @@
         }
 
         .card-image-container { 
-          @extend .loading-background;
-          background-color: lightgray;
+          animation: loading 0.75s;
+          animation-iteration-count: infinite;
+          animation-direction: alternate-reverse;
     
           .card-image-bottom {
             max-width: 100%;
