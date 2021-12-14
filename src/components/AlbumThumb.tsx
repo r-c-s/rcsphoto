@@ -8,15 +8,19 @@ interface Props {
 
 function AlbumThumb(props: Props) {
   const { album } = props;
-  const [imageContainerHeight, setImageContainerHeight] = useState<number>();
+  const [imageContainerHeight, setImageContainerHeight] = useState<number | string>();
   const [ready, setReady] = useState<boolean>();
 
   useEffect(() => {
-    const element = document.getElementsByClassName('card-image-container');
-    const width = element[0].clientWidth;
-    const height = 2 * width / 3;
-    setImageContainerHeight(height)
-  });
+    if (!album.coverImage) {
+      const element = document.getElementsByClassName('card-image-container');
+      const width = element[0].clientWidth;
+      const height = 2 * width / 3;
+      setImageContainerHeight(height);
+    } else {
+      setImageContainerHeight('fit-content');
+    }
+  }, [ album ]);
 
   return <div className="card-container responsive-width">
     <Link to={album.id ? `/albums/${album.id}` : '/'}>
