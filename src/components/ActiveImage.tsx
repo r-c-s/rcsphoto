@@ -1,12 +1,14 @@
 
 import { useState } from 'react';
 import { Image } from '../services/RcsPhotoApi';
+import { faChevronLeft, faChevronRight, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Props {
   image: Image;
   onClose: () => void;
-  onNext: () => void;
-  onPrevious: () => void;
+  onNext?: () => void;
+  onPrevious?: () => void;
 }
 
 function ActiveImage(props: Props) {
@@ -18,11 +20,23 @@ function ActiveImage(props: Props) {
     return size >  512 ? image.medium : image.small;
   }
 
-  return <div id="active-image" onClick={onClose}>
+  return <div id="active-image">
+    <div className="top-bar">
+      <div className="close-icon-container" onClick={onClose}>
+        <FontAwesomeIcon icon={faTimes}/>
+      <small>close</small>
+      </div>
+    </div>
     <div className="image-container">
+      <div className={`nav-icon-container ${!onPrevious ? 'visibility-hidden' : ''}`} onClick={onPrevious}>
+        <FontAwesomeIcon className="nav-icon" icon={faChevronLeft}/>
+      </div>
       <img className={ready ? 'image-ready' : 'image-not-ready'} 
         src={selectBestSize(image)} 
         onLoad={() => setReady(true)}/>
+      <div className={`nav-icon-container ${!onNext ? 'visibility-hidden' : ''}`}  onClick={onNext}>
+        <FontAwesomeIcon className="nav-icon" icon={faChevronRight}/>
+      </div>
     </div>
   </div>
 }

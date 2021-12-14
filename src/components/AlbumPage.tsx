@@ -28,18 +28,24 @@ function AlbumPage(props: Props) {
     document.body.classList[activeImage ? 'add' : 'remove']('overflow-hidden');
   }, [ activeImage ]);
 
+  const trySetActiveImage = (image: Image) => {
+    if (image) {
+      return () => setActiveImage(image);
+    } else {
+      return undefined;
+    }
+  }
+
   const findNext = () => {
     const { images } = album;
     const currentIndex = images.indexOf(activeImage);
-    const nextIndex = (currentIndex + 1) % images.length;
-    return images[nextIndex];
+    return currentIndex === images.length - 1 ? undefined : images[currentIndex + 1];
   }
 
   const findPrevious = () => {
     const { images } = album;
     const currentIndex = images.indexOf(activeImage);
-    const previousIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
-    return images[previousIndex]; 
+    return currentIndex === 0 ? undefined : images[currentIndex - 1];
   }
 
   if (album) {
@@ -52,8 +58,8 @@ function AlbumPage(props: Props) {
             key={JSON.stringify(activeImage)}
             image={activeImage} 
             onClose={() => setActiveImage(undefined)}
-            onNext={() => setActiveImage(findNext())}
-            onPrevious={() => setActiveImage(findPrevious())}/>
+            onNext={trySetActiveImage(findNext())}
+            onPrevious={trySetActiveImage(findPrevious())}/>
         }
         <div className="thumbs-container">
           {
