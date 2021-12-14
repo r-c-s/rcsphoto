@@ -128,7 +128,7 @@
   }
 
   #album-page {
-    .thumb {
+    .image-thumb-container {
       display: inline-block;
       padding: 10px;
       text-align: center;  
@@ -141,7 +141,7 @@
       }
     } 
 
-    .scale {
+    .animate-scale {
       -webkit-transition: -webkit-transform 0.3s ease;
       -moz-transition: -moz-transform 0.3s ease;
       -o-transition: -o-transform 0.3s ease;
@@ -149,7 +149,7 @@
       transition: transform 0.3s ease;
     }
 
-    .scale:hover, .scale.active {
+    .animate-scale:hover, .animate-scale.active {
       -webkit-transform: scale(1.1);
       -moz-transform: scale(1.1);
       -o-transform: scale(1.1);
@@ -185,24 +185,24 @@
     }
   }
 
-  .responsive-width {
+  .item-responsive-width {
     width: 50%;
   }
 
   @media only screen and (min-width: 768px) {
-    .responsive-width {
+    .item-responsive-width {
       width: 33.33%;
     }
   }
 
   @media only screen and (min-width: 992px) {
-    .responsive-width {
+    .item-responsive-width {
       width: 25%;
     }
   }
 
   @media only screen and (min-width: 1200px) {
-    .responsive-width {
+    .item-responsive-width {
       width: 16.66%;
     }
   }

@@ -11,7 +11,7 @@ function ImageThumb(props: Props) {
   const { image, onClick } = props; 
   const [ready, setReady] = useState<boolean>();
 
-  return <a className="thumb scale responsive-width">
+  return <a className="image-thumb-container animate-scale item-responsive-width">
     <img 
       className={ready ? 'image-ready' : 'image-not-ready'} 
       src={image.thumb} 

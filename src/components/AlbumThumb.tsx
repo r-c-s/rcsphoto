@@ -22,7 +22,7 @@ function AlbumThumb(props: Props) {
     }
   }, [ album ]);
 
-  return <div className="card-container responsive-width">
+  return <div className="card-container item-responsive-width">
     <Link to={album.id ? `/albums/${album.id}` : '/'}>
       <div className="card">
         <div className="body">
