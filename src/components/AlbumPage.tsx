@@ -24,6 +24,10 @@ function AlbumPage(props: Props) {
     fetchAndSetAlbum();
   }, [ albumId ]);
 
+  useEffect(() => {
+    document.body.classList[activeImage ? 'add' : 'remove']('overflow-hidden');
+  }, [ activeImage ]);
+
   const findNext = () => {
     const { images } = album;
     const currentIndex = images.indexOf(activeImage);
