@@ -11,16 +11,20 @@ function AlbumThumb(props: Props) {
   const [imageContainerHeight, setImageContainerHeight] = useState<number | string>();
   const [ready, setReady] = useState<boolean>();
 
+  const setCoverImageContainerHeight = () => {
+    const element = document.getElementsByClassName('card-image-container');
+    const width = element[0].clientWidth;
+    const height = 2 * width / 3;
+    setImageContainerHeight(height);
+  }
+
   useEffect(() => {
-    if (!album.coverImage) {
-      const element = document.getElementsByClassName('card-image-container');
-      const width = element[0].clientWidth;
-      const height = 2 * width / 3;
-      setImageContainerHeight(height);
-    } else {
-      setImageContainerHeight('fit-content');
+    setCoverImageContainerHeight();
+    window.addEventListener('resize', setCoverImageContainerHeight);
+    return () => {
+       window.removeEventListener('resize', setCoverImageContainerHeight);
     }
-  }, [ album ]);
+  }, []);
 
   return <div className="card-container item-responsive-width">
     <Link to={album.id ? `/albums/${album.id}` : '/'}>

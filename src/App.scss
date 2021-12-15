@@ -126,9 +126,15 @@
           animation: loading 0.75s;
           animation-iteration-count: infinite;
           animation-direction: alternate-reverse;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
     
           .card-image-bottom {
-            max-width: 100%;
+            flex-shrink: 1;
+            min-width: 100%;
+            min-height: 100%
           }
         }
       }
