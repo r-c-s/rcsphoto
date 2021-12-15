@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image } from '../services/RcsPhotoApi';
 import { faChevronLeft, faChevronRight, faTimes, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -39,6 +39,21 @@ function ActiveImage(props: Props) {
       onPrevious && onPrevious();
     }
   }
+
+  const handleKeyUp = ({ code }) => {
+    if (code ===  'ArrowRight') {
+      onNext && onNext();
+    } else if (code === 'ArrowLeft') {
+      onPrevious && onPrevious();
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keyup', handleKeyUp);
+    return () => {
+      document.removeEventListener('keyup', handleKeyUp);
+    }
+  }, [])
 
   return <div id="active-image">
     <div className="close-icon-container" onClick={onClose}>
