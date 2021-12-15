@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Image } from '../services/RcsPhotoApi';
-import { faChevronLeft, faChevronRight, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faChevronRight, faTimes, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Props {
@@ -25,6 +25,10 @@ function ActiveImage(props: Props) {
       <FontAwesomeIcon icon={faTimes}/>
       <small>close</small>
     </div>
+    <a className="download-icon-container" onClick={onClose} href={image.full} target="_blank">
+      <FontAwesomeIcon icon={faDownload}/>
+      <small>high-res</small>
+    </a>
     <div className="image-container">
       <div className={`nav-icon-container ${!onPrevious ? 'visibility-hidden' : ''}`} onClick={onPrevious}>
         <FontAwesomeIcon className="nav-icon" icon={faChevronLeft}/>
