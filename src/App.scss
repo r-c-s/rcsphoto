@@ -249,24 +249,30 @@
   }
 
   .item-responsive-width {
-    width: 50%;
+    width: 50%; // 2 per row
   }
 
   @media only screen and (min-width: 768px) {
     .item-responsive-width {
-      width: 33.33%;
+      width: 33.33%; // 3 per row
     }
   }
 
   @media only screen and (min-width: 992px) {
     .item-responsive-width {
-      width: 25%;
+      width: 25%; // 4 per row
     }
   }
 
   @media only screen and (min-width: 1200px) {
     .item-responsive-width {
-      width: 16.66%;
+      width: 20%; // 5 per row
+    }
+  }
+
+  @media only screen and (min-width: 1400px) {
+    .item-responsive-width {
+      width: 16.66%; // 6 per row
     }
   }
 }
