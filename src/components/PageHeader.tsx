@@ -1,17 +1,15 @@
-import React from 'react';
-
 interface Props {
   title: string;
-  lines?: string[];
+  subtitles?: string[];
 }
 
 function PageHeader(props: Props) {
-  const { title, lines } = props;
+  const { title, subtitles } = props;
 
   return <div className="page-header">
     <h2>{ title }</h2>
     {
-      lines?.map(line => 
+      subtitles?.map(line => 
         <small>{ line }</small> 
       )
     }

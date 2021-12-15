@@ -21,11 +21,9 @@ function ActiveImage(props: Props) {
   }
 
   return <div id="active-image">
-    <div className="top-bar">
-      <div className="close-icon-container" onClick={onClose}>
-        <FontAwesomeIcon icon={faTimes}/>
+    <div className="close-icon-container" onClick={onClose}>
+      <FontAwesomeIcon icon={faTimes}/>
       <small>close</small>
-      </div>
     </div>
     <div className="image-container">
       <div className={`nav-icon-container ${!onPrevious ? 'visibility-hidden' : ''}`} onClick={onPrevious}>

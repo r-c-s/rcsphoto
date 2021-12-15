@@ -51,7 +51,7 @@ function AlbumPage(props: Props) {
   if (album) {
     return <div id="album-page">
       <div className="container">
-        <PageHeader title={album.name} lines={[`${album.images.length} images`]}/>
+        <PageHeader title={album.name} subtitles={[`${album.images.length} images`]}/>
         {
           activeImage &&
           <ActiveImage 

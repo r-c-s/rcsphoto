@@ -183,24 +183,17 @@
     top: 0;
     left: 0;
 
-    .top-bar {
-      @extend .flex-column;
-      justify-content: center;
-      background-color: transparent;
-      width: 100%;
-      height: 50px;
-      position: fixed;
-      padding: 0 10px;
+    .close-icon-container {
+      @extend .flex-row;
+      align-items: center;
+      color: #eee;
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      left: 10px;
 
-      .close-icon-container {
-        @extend .flex-row;
-        align-items: center;
-        color: #eee;
-        cursor: pointer;
-
-        small {
-          margin-left: 5px;
-        }
+      small {
+        margin-left: 5px;
       }
     }
 

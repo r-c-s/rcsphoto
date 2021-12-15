@@ -7,7 +7,7 @@ function About() {
   
   return <div id="about">
     <div className="container">
-      <PageHeader title="About" lines={["by Raphael Corrêa"]}/>
+      <PageHeader title="About" subtitles={["by Raphael Corrêa"]}/>
       <div className="body">
         <p>This is a portfolio for showcasing my photography, one of my biggest hobbies once upon a time.</p>
         <p>All images were taken using a Sony DSC-RX100 II and V cameras.</p>
