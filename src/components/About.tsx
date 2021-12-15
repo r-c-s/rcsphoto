@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import PageHeader from './PageHeader';
 
 function About() {
   document.title = 'About | RCS Photography';
+  const [ready, setReady] = useState<boolean>();
   
   return <div id="about">
     <div className="container">
@@ -14,7 +16,10 @@ function About() {
         <p>Thanks for viewing!</p>
         <p>The source code can be found on <a href='https://www.github.com/r-c-s/rcsphoto' target='_blank'>GitHub</a>.</p>
         <div className="image-container">
-          <img src="me.jpg"/>
+          <img 
+            src="me.jpg" 
+            className={ready ? 'image-ready' : 'image-not-ready'} 
+            onLoad={() => setReady(true)}/>
         </div>
       </div>
     </div>
