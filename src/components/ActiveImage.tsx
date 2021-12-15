@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Image } from '../services/RcsPhotoApi';
 import { faChevronLeft, faChevronRight, faTimes, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,10 +14,30 @@ interface Props {
 function ActiveImage(props: Props) {
   const { image, onClose, onNext, onPrevious } = props; 
   const [ready, setReady] = useState<boolean>();
+
+  const [ startTouchX, setStartTouchX ] = useState<number>();
+  const [ lastTouchX, setLastTouchX ] = useState<number>();
   
   const selectBestSize = (image: Image) => {
     const size = Math.max(window.innerWidth, window.innerHeight);
     return size >  512 ? image.medium : image.small;
+  }
+
+  const handleTouchStart = (touchEvent: React.TouchEvent<HTMLDivElement>) => {
+    setStartTouchX(touchEvent.targetTouches[0].clientX);
+  }
+
+  const handleTouchMove = (touchMoveEvent: React.TouchEvent<HTMLDivElement>) => {
+    setLastTouchX(touchMoveEvent.targetTouches[0].clientX);
+  }
+
+  const handleTouchEnd = (touchEvent: React.TouchEvent<HTMLDivElement>) => {
+    const diff = lastTouchX - startTouchX;
+    if (diff < -20) {
+      onNext && onNext();
+    } else if (diff > 20) {
+      onPrevious && onPrevious();
+    }
   }
 
   return <div id="active-image">
@@ -29,7 +49,11 @@ function ActiveImage(props: Props) {
       <FontAwesomeIcon icon={faDownload}/>
       <small>high-res</small>
     </a>
-    <div className="image-container">
+    <div 
+      className="image-container"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}>
       <div className={`nav-icon-container ${!onPrevious ? 'visibility-hidden' : ''}`} onClick={onPrevious}>
         <FontAwesomeIcon className="nav-icon" icon={faChevronLeft}/>
       </div>
