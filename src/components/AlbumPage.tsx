@@ -12,6 +12,7 @@ interface Props {
 function AlbumPage(props: Props) {
   const { service } = props;
   const { albumId } = useParams();
+
   const [ album, setAlbum ] = useState<Album>();
   const [ activeImage, setActiveImage ] = useState<Image>();
 
@@ -48,31 +49,27 @@ function AlbumPage(props: Props) {
     return currentIndex === 0 ? undefined : images[currentIndex - 1];
   }
 
-  if (album) {
-    return <div id="album-page">
-      <div className="container">
-        <PageHeader title={album.name} subtitles={[`${album.images.length} images`]}/>
+  return <div id="album-page">
+    <div className="container">
+      <PageHeader title={album?.name} subtitle={album ? `${album.images.length} images` : undefined}/>
+      {
+        activeImage &&
+        <ActiveImage 
+          key={JSON.stringify(activeImage)}
+          image={activeImage} 
+          onClose={() => setActiveImage(undefined)}
+          onNext={trySetActiveImage(findNext())}
+          onPrevious={trySetActiveImage(findPrevious())}/>
+      }
+      <div className="thumbs-container">
         {
-          activeImage &&
-          <ActiveImage 
-            key={JSON.stringify(activeImage)}
-            image={activeImage} 
-            onClose={() => setActiveImage(undefined)}
-            onNext={trySetActiveImage(findNext())}
-            onPrevious={trySetActiveImage(findPrevious())}/>
+          album?.images.map(image => 
+            <ImageThumb image={image} onClick={() => setActiveImage(image)}/>
+          )
         }
-        <div className="thumbs-container">
-          {
-            album.images.map(image => 
-              <ImageThumb image={image} onClick={() => setActiveImage(image)}/>
-            )
-          }
-        </div>
       </div>
-    </div>;
-  } else {
-    return <></>;
-  }
+    </div>
+  </div>;
 }
 
 export default AlbumPage;

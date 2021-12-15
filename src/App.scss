@@ -8,9 +8,15 @@
     visibility: hidden;
   }
 
-  @keyframes loading {
+  @keyframes loading-animation {
     from { background-color: #eee; }
     to { background-color: lightgray; }
+  }
+
+  .loading {
+    animation: loading-animation 0.75s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
   }
 
   .loading-background {
@@ -18,6 +24,16 @@
     background-position: center center; 
     background-repeat: no-repeat; 
     background-size: auto;
+  }
+
+  .loading-text {
+    @extend .loading;
+    color: transparent;
+    display: inline-block;
+  }
+
+  .pointer-events-none {
+    pointer-events: none;
   }
 
   .ellipsis {
@@ -123,9 +139,7 @@
         }
 
         .card-image-container { 
-          animation: loading 0.75s;
-          animation-iteration-count: infinite;
-          animation-direction: alternate-reverse;
+          @extend .loading;
           display: flex;
           justify-content: center;
           align-items: center;

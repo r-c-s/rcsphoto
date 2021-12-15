@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Album } from '../services/RcsPhotoApi';
+import LoadingText from './LoadingText';
 
 interface Props {
   album: Album;
@@ -26,14 +27,20 @@ function AlbumThumb(props: Props) {
     }
   }, []);
 
-  return <div className="card-container item-responsive-width">
+  return <div className={`card-container item-responsive-width ${!album.id ? 'pointer-events-none' : ''}`}>
     <Link to={album.id ? `/albums/${album.id}` : '/'}>
       <div className="card">
         <div className="body">
           <div className="card-title">
-            <div className="ellipsis">
-              { album.name }
-            </div>
+            {
+              album.name &&
+              <div className="ellipsis">
+                { album.name }
+              </div>
+            }
+            {
+              !album.name && <LoadingText chars={10}/>
+            }
           </div>
         </div>
         <div className="card-image-container" style={{ height: imageContainerHeight }}>

@@ -1,18 +1,22 @@
+import LoadingText from "./LoadingText";
+
 interface Props {
   title: string;
-  subtitles?: string[];
+  subtitle: string;
 }
 
 function PageHeader(props: Props) {
-  const { title, subtitles } = props;
+  const { title, subtitle } = props;
 
   return <div className="page-header">
-    <h2>{ title }</h2>
-    {
-      subtitles?.map(line => 
-        <small>{ line }</small> 
-      )
-    }
+    <h2>
+      { title }
+      { !title && <LoadingText chars={10}/> }
+    </h2>
+    <small>
+      { subtitle }
+      { !subtitle && <LoadingText chars={10}/> }
+    </small>
   </div>
 }
 

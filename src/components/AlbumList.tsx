@@ -32,7 +32,7 @@ class AlbumList extends React.Component<Props, State> {
     return <div id="album-list">
       <div className="container">
         <div className="album-thumbs-container">
-          <PageHeader title="Albums" subtitles={["by Raphael Corrêa"]}/>
+          <PageHeader title="Albums" subtitle={"by Raphael Corrêa"}/>
           {  
             albums.map(album => <AlbumThumb album={album}/>)
           }
@@ -46,8 +46,8 @@ class AlbumList extends React.Component<Props, State> {
       .map(i => ({
         id: undefined,
         sortOrder: undefined,
-        name: '...',
-        images: [],
+        name: undefined,
+        images: undefined,
         coverImage: undefined
       }));
   }
