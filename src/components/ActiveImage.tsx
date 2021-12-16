@@ -58,11 +58,11 @@ function ActiveImage(props: Props) {
 
   const handleTouchEnd = async (touchEvent: React.TouchEvent<HTMLDivElement>) => {
     const diff = lastTouchX - startTouchX;
-    if (diff < -20) {
+    if (hasNext() && diff < -20) {
       setTouchEndClass('finished-next');
       await waitForTransitionAnimation();
       incrementCurrIndex();
-    } else if (diff > 20) {
+    } else if (hasPrevious() && diff > 20) {
       setTouchEndClass('finished-previous');
       await waitForTransitionAnimation();
       decrementCurrIndex();

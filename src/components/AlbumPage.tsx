@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import RcsPhotoApi, { Album, Image } from '../services/RcsPhotoApi';
+import RcsPhotoApi, { Album } from '../services/RcsPhotoApi';
 import ActiveImage from './ActiveImage';
 import ImageThumb from './ImageThumb';
 import PageHeader from './PageHeader';
@@ -29,31 +29,11 @@ function AlbumPage(props: Props) {
     document.body.classList[activeImageIndex ? 'add' : 'remove']('overflow-hidden');
   }, [ activeImageIndex ]);
 
-  // const trySetActiveImage = (image: Image) => {
-  //   if (image) {
-  //     return () => setActiveImageIndex(image);
-  //   } else {
-  //     return undefined;
-  //   }
-  // }
-
-  // const findNext = () => {
-  //   const { images } = album;
-  //   const currentIndex = images.indexOf(activeImageIndex);
-  //   return currentIndex === images.length - 1 ? undefined : images[currentIndex + 1];
-  // }
-
-  // const findPrevious = () => {
-  //   const { images } = album;
-  //   const currentIndex = images.indexOf(activeImageIndex);
-  //   return currentIndex === 0 ? undefined : images[currentIndex - 1];
-  // }
-
   return <div id="album-page">
     <div className="container">
       <PageHeader title={album?.name} subtitle={album ? `${album.images.length} images` : undefined}/>
       {
-        activeImageIndex &&
+        activeImageIndex !== undefined &&
         <ActiveImage 
           currentIndex={activeImageIndex} 
           images={album.images}
