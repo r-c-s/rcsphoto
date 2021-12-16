@@ -35,7 +35,7 @@ function AlbumPage(props: Props) {
       {
         activeImageIndex !== undefined &&
         <ActiveImage 
-          currentIndex={activeImageIndex} 
+          startIndex={activeImageIndex} 
           images={album.images}
           onClose={() => setActiveImageIndex(undefined)}/>
       }
