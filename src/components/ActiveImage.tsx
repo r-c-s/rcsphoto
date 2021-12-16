@@ -37,13 +37,13 @@ function ActiveImage(props: Props) {
   }, [ currIndex ]);
 
   const incrementCurrIndex = () => {
-    if (currIndex < images.length - 1) {
+    if (hasNext()) {
       setCurrIndex(currIndex + 1);
     }
   }
 
   const decrementCurrIndex = () => {
-    if (currIndex > 0) {
+    if (hasPrevious()) {
       setCurrIndex(currIndex - 1);
     }
   }
@@ -56,7 +56,7 @@ function ActiveImage(props: Props) {
     setLastTouchX(touchMoveEvent.targetTouches[0].clientX);
   }
 
-  const handleTouchEnd = async (touchEvent: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchEnd = async () => {
     const diff = lastTouchX - startTouchX;
     if (hasNext() && diff < -20) {
       setTouchEndClass('finished-next');
