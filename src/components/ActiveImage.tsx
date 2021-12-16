@@ -14,17 +14,6 @@ function ActiveImage(props: Props) {
   const { currentIndex, images, onClose } = props; 
 
   const [ currIndex, setCurrIndex ] = useState<number>(currentIndex);
-
-  const findNext = () => {
-    return currIndex === images.length - 1 ? undefined : images[currIndex + 1];
-  }
-
-  const findPrevious = () => {
-    return currIndex === 0 ? undefined : images[currIndex - 1];
-  }
-
-  const [ next, setNext ] = useState<Image>(findNext());
-  const [ previous, setPrevious ] = useState<Image>(findPrevious());
   const [ ready, setReady ] = useState<boolean>();
   const [ startTouchX, setStartTouchX ] = useState<number>();
   const [ lastTouchX, setLastTouchX ] = useState<number>();
@@ -32,9 +21,6 @@ function ActiveImage(props: Props) {
 
   useEffect(() => {
     setTouchEndClass(undefined);
-
-    setNext(findNext());
-    setPrevious(findPrevious());
 
     const handleKeyUp = ({ code }) => {
       if (code ===  'ArrowRight') {
@@ -82,14 +68,22 @@ function ActiveImage(props: Props) {
       decrementCurrIndex();
     }
   }
+
+  const waitForTransitionAnimation = () => {
+    return new Promise(resolve => setTimeout(resolve, 500));
+  }
   
   const selectBestSize = (image: Image) => {
     const size = Math.max(window.innerWidth, window.innerHeight);
     return size >  512 ? image.medium : image.small;
   }
 
-  const waitForTransitionAnimation = () => {
-    return new Promise(resolve => setTimeout(resolve, 750));
+  const hasNext = () => {
+    return currIndex < images.length - 1;
+  }
+
+  const hasPrevious = () => {
+    return currIndex > 0;
   }
 
   return <div id="active-image">
@@ -110,7 +104,9 @@ function ActiveImage(props: Props) {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}>
         
-        <div className={`nav-icon-container ${!previous ? 'visibility-hidden' : ''}`} onClick={decrementCurrIndex}>
+        <div 
+          className={`nav-icon-container ${!hasPrevious() ? 'visibility-hidden' : ''}`} 
+          onClick={decrementCurrIndex}>
           <FontAwesomeIcon className="nav-icon" icon={faChevronLeft}/>
         </div>
 
@@ -118,22 +114,24 @@ function ActiveImage(props: Props) {
           src={selectBestSize(images[currIndex])} 
           onLoad={() => setReady(true)}/>
 
-        <div className={`nav-icon-container ${!next ? 'visibility-hidden' : ''}`} onClick={incrementCurrIndex}>
+        <div 
+          className={`nav-icon-container ${!hasNext() ? 'visibility-hidden' : ''}`} 
+          onClick={incrementCurrIndex}>
           <FontAwesomeIcon className="nav-icon" icon={faChevronRight}/>
         </div>
       </div>
 
       {
-        next && 
+        hasNext() && 
         <div className="image-container next">
-          <img src={selectBestSize(next)}/>
+          <img src={selectBestSize(images[currIndex + 1])}/>
         </div>
       }
 
       {
-        previous && 
+        hasPrevious() && 
         <div className="image-container previous">
-          <img src={selectBestSize(previous)}/>
+          <img src={selectBestSize(images[currIndex - 1])}/>
         </div>
       }
     </div>

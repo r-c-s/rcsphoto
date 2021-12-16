@@ -281,12 +281,12 @@
     }
 
     .finished-next {
-      animation: finished-next-animation 0.75s;
+      animation: finished-next-animation 0.5s;
       animation-fill-mode: forwards;
     }
 
     .finished-previous {
-      animation: finished-previous-animation 0.75s;
+      animation: finished-previous-animation 0.5s;
       animation-fill-mode: forwards;
     }
   }
