@@ -5,22 +5,61 @@ import { faChevronLeft, faChevronRight, faTimes, faDownload } from "@fortawesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Props {
-  image: Image;
+  currentIndex: number;
+  images: Image[];
   onClose: () => void;
-  onNext?: () => void;
-  onPrevious?: () => void;
 }
 
 function ActiveImage(props: Props) {
-  const { image, onClose, onNext, onPrevious } = props; 
-  const [ready, setReady] = useState<boolean>();
+  const { currentIndex, images, onClose } = props; 
 
+  const [ currIndex, setCurrIndex ] = useState<number>(currentIndex);
+
+  const findNext = () => {
+    return currIndex === images.length - 1 ? undefined : images[currIndex + 1];
+  }
+
+  const findPrevious = () => {
+    return currIndex === 0 ? undefined : images[currIndex - 1];
+  }
+
+  const [ next, setNext ] = useState<Image>(findNext());
+  const [ previous, setPrevious ] = useState<Image>(findPrevious());
+  const [ ready, setReady ] = useState<boolean>();
   const [ startTouchX, setStartTouchX ] = useState<number>();
   const [ lastTouchX, setLastTouchX ] = useState<number>();
+  const [ touchEndClass, setTouchEndClass ] = useState<string>();  
+
+  useEffect(() => {
+    setTouchEndClass(undefined);
+
+    setNext(findNext());
+    setPrevious(findPrevious());
+
+    const handleKeyUp = ({ code }) => {
+      if (code ===  'ArrowRight') {
+        incrementCurrIndex();
+      } else if (code === 'ArrowLeft') {
+        decrementCurrIndex();
+      }
+    }
   
-  const selectBestSize = (image: Image) => {
-    const size = Math.max(window.innerWidth, window.innerHeight);
-    return size >  512 ? image.medium : image.small;
+    document.addEventListener('keyup', handleKeyUp);
+    return () => {
+      document.removeEventListener('keyup', handleKeyUp);
+    }
+  }, [ currIndex ]);
+
+  const incrementCurrIndex = () => {
+    if (currIndex < images.length - 1) {
+      setCurrIndex(currIndex + 1);
+    }
+  }
+
+  const decrementCurrIndex = () => {
+    if (currIndex > 0) {
+      setCurrIndex(currIndex - 1);
+    }
   }
 
   const handleTouchStart = (touchEvent: React.TouchEvent<HTMLDivElement>) => {
@@ -31,55 +70,74 @@ function ActiveImage(props: Props) {
     setLastTouchX(touchMoveEvent.targetTouches[0].clientX);
   }
 
-  const handleTouchEnd = (touchEvent: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchEnd = async (touchEvent: React.TouchEvent<HTMLDivElement>) => {
     const diff = lastTouchX - startTouchX;
     if (diff < -20) {
-      onNext && onNext();
+      setTouchEndClass('finished-next');
+      await waitForTransitionAnimation();
+      incrementCurrIndex();
     } else if (diff > 20) {
-      onPrevious && onPrevious();
+      setTouchEndClass('finished-previous');
+      await waitForTransitionAnimation();
+      decrementCurrIndex();
     }
   }
-
-  const handleKeyUp = ({ code }) => {
-    if (code ===  'ArrowRight') {
-      onNext && onNext();
-    } else if (code === 'ArrowLeft') {
-      onPrevious && onPrevious();
-    }
+  
+  const selectBestSize = (image: Image) => {
+    const size = Math.max(window.innerWidth, window.innerHeight);
+    return size >  512 ? image.medium : image.small;
   }
 
-  useEffect(() => {
-    document.addEventListener('keyup', handleKeyUp);
-    return () => {
-      document.removeEventListener('keyup', handleKeyUp);
-    }
-  }, [])
+  const waitForTransitionAnimation = () => {
+    return new Promise(resolve => setTimeout(resolve, 750));
+  }
 
   return <div id="active-image">
-    <div className="close-icon-container" onClick={onClose}>
-      <FontAwesomeIcon icon={faTimes}/>
-      <small>close</small>
-    </div>
-    <a className="download-icon-container" onClick={onClose} href={image.full} target="_blank">
+    <a className="top-icon-container icon-left" href={images[currIndex].full} target="_blank">
       <FontAwesomeIcon icon={faDownload}/>
       <small>high-res</small>
     </a>
-    <div 
-      className="image-container"
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}>
-      <div className={`nav-icon-container ${!onPrevious ? 'visibility-hidden' : ''}`} onClick={onPrevious}>
-        <FontAwesomeIcon className="nav-icon" icon={faChevronLeft}/>
-      </div>
-      <img className={ready ? 'image-ready' : 'image-not-ready'} 
-        src={selectBestSize(image)} 
-        onLoad={() => setReady(true)}/>
-      <div className={`nav-icon-container ${!onNext ? 'visibility-hidden' : ''}`}  onClick={onNext}>
-        <FontAwesomeIcon className="nav-icon" icon={faChevronRight}/>
-      </div>
+
+    <div className="top-icon-container icon-right" onClick={onClose}>
+      <FontAwesomeIcon icon={faTimes}/>
+      <small>close</small>
     </div>
-  </div>
+
+    <div className={`images-container ${touchEndClass}`}> 
+      <div 
+        className="image-container"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}>
+        
+        <div className={`nav-icon-container ${!previous ? 'visibility-hidden' : ''}`} onClick={decrementCurrIndex}>
+          <FontAwesomeIcon className="nav-icon" icon={faChevronLeft}/>
+        </div>
+
+        <img className={ready ? 'image-ready' : 'image-not-ready'} 
+          src={selectBestSize(images[currIndex])} 
+          onLoad={() => setReady(true)}/>
+
+        <div className={`nav-icon-container ${!next ? 'visibility-hidden' : ''}`} onClick={incrementCurrIndex}>
+          <FontAwesomeIcon className="nav-icon" icon={faChevronRight}/>
+        </div>
+      </div>
+
+      {
+        next && 
+        <div className="image-container next">
+          <img src={selectBestSize(next)}/>
+        </div>
+      }
+
+      {
+        previous && 
+        <div className="image-container previous">
+          <img src={selectBestSize(previous)}/>
+        </div>
+      }
+    </div>
+  </div>;
 }
 
 export default ActiveImage;

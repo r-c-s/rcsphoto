@@ -14,7 +14,7 @@ function AlbumPage(props: Props) {
   const { albumId } = useParams();
 
   const [ album, setAlbum ] = useState<Album>();
-  const [ activeImage, setActiveImage ] = useState<Image>();
+  const [ activeImageIndex, setActiveImageIndex ] = useState<number>();
 
   useEffect(() => {
     async function fetchAndSetAlbum() {
@@ -26,45 +26,43 @@ function AlbumPage(props: Props) {
   }, [ albumId ]);
 
   useEffect(() => {
-    document.body.classList[activeImage ? 'add' : 'remove']('overflow-hidden');
-  }, [ activeImage ]);
+    document.body.classList[activeImageIndex ? 'add' : 'remove']('overflow-hidden');
+  }, [ activeImageIndex ]);
 
-  const trySetActiveImage = (image: Image) => {
-    if (image) {
-      return () => setActiveImage(image);
-    } else {
-      return undefined;
-    }
-  }
+  // const trySetActiveImage = (image: Image) => {
+  //   if (image) {
+  //     return () => setActiveImageIndex(image);
+  //   } else {
+  //     return undefined;
+  //   }
+  // }
 
-  const findNext = () => {
-    const { images } = album;
-    const currentIndex = images.indexOf(activeImage);
-    return currentIndex === images.length - 1 ? undefined : images[currentIndex + 1];
-  }
+  // const findNext = () => {
+  //   const { images } = album;
+  //   const currentIndex = images.indexOf(activeImageIndex);
+  //   return currentIndex === images.length - 1 ? undefined : images[currentIndex + 1];
+  // }
 
-  const findPrevious = () => {
-    const { images } = album;
-    const currentIndex = images.indexOf(activeImage);
-    return currentIndex === 0 ? undefined : images[currentIndex - 1];
-  }
+  // const findPrevious = () => {
+  //   const { images } = album;
+  //   const currentIndex = images.indexOf(activeImageIndex);
+  //   return currentIndex === 0 ? undefined : images[currentIndex - 1];
+  // }
 
   return <div id="album-page">
     <div className="container">
       <PageHeader title={album?.name} subtitle={album ? `${album.images.length} images` : undefined}/>
       {
-        activeImage &&
+        activeImageIndex &&
         <ActiveImage 
-          key={JSON.stringify(activeImage)}
-          image={activeImage} 
-          onClose={() => setActiveImage(undefined)}
-          onNext={trySetActiveImage(findNext())}
-          onPrevious={trySetActiveImage(findPrevious())}/>
+          currentIndex={activeImageIndex} 
+          images={album.images}
+          onClose={() => setActiveImageIndex(undefined)}/>
       }
       <div className="thumbs-container">
         {
-          album?.images.map(image => 
-            <ImageThumb image={image} onClick={() => setActiveImage(image)}/>
+          album?.images.map((image, i) => 
+            <ImageThumb image={image} onClick={() => setActiveImageIndex(i)}/>
           )
         }
       </div>
