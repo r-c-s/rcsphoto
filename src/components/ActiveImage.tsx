@@ -113,7 +113,7 @@ function ActiveImage(props: Props) {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}>
         
-        <div className={`nav-icon-container ${!hasPrevious() ? 'visibility-hidden' : ''}`} onClick={decrementCurrIndex}>
+        <div className={`nav-icon-container ${!hasPrevious() ? 'visibility-hidden' : ''}`} onClick={() => { setReady(false); decrementCurrIndex(); }}>
           <FontAwesomeIcon className="nav-icon" icon={faChevronLeft}/>
         </div>
 
@@ -121,7 +121,7 @@ function ActiveImage(props: Props) {
           src={selectBestSize(images[currentIndex])} 
           onLoad={() => setReady(true)}/>
 
-        <div className={`nav-icon-container ${!hasNext() ? 'visibility-hidden' : ''}`} onClick={incrementCurrIndex}>
+        <div className={`nav-icon-container ${!hasNext() ? 'visibility-hidden' : ''}`} onClick={() => { setReady(false); incrementCurrIndex(); }}>
           <FontAwesomeIcon className="nav-icon" icon={faChevronRight}/>
         </div>
       </div>
