@@ -30,6 +30,7 @@
     @extend .loading;
     color: transparent;
     display: inline-block;
+    line-height: 1em;
   }
 
   .pointer-events-none {

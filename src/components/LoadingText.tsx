@@ -6,7 +6,7 @@ export default function LoadingText(props: Props) {
   return <div>
     <div className="loading-text">
       {
-        Array.from(Array(props.chars).keys()).join()
+        Array(props.chars).map(entry => '').join()
       }
     </div>
   </div>;

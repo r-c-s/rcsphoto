@@ -11,11 +11,11 @@ function PageHeader(props: Props) {
   return <div className="page-header">
     <h2>
       { title }
-      { !title && <LoadingText chars={10}/> }
+      { !title && <LoadingText chars={20}/> }
     </h2>
     <small>
       { subtitle }
-      { !subtitle && <LoadingText chars={10}/> }
+      { !subtitle && <LoadingText chars={20}/> }
     </small>
   </div>
 }

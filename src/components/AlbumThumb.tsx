@@ -39,7 +39,7 @@ function AlbumThumb(props: Props) {
               </div>
             }
             {
-              !album.name && <LoadingText chars={10}/>
+              !album.name && <LoadingText chars={20}/>
             }
           </div>
         </div>
