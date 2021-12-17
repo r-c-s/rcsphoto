@@ -274,23 +274,23 @@
       }
     }
 
-    @keyframes finished-next-animation {
+    @keyframes transition-to-next-animation {
       from { right: 0; }
       to { right: 100%; }
     }
 
-    @keyframes finished-previous-animation {
+    @keyframes transition-to-previous-animation {
       from { right: 0; }
       to { right: -100%; }
     }
 
-    .finished-next {
-      animation: finished-next-animation 0.5s;
+    .transition-to-next {
+      animation: transition-to-next-animation 0.5s;
       animation-fill-mode: forwards;
     }
 
-    .finished-previous {
-      animation: finished-previous-animation 0.5s;
+    .transition-to-previous {
+      animation: transition-to-previous-animation 0.5s;
       animation-fill-mode: forwards;
     }
   }

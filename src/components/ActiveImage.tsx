@@ -10,6 +10,10 @@ interface Props {
   onClose: () => void;
 }
 
+type TouchEndClass = 'transition-to-previous' | 'transition-to-next';
+
+const minSwipeAmount = 20;
+
 function ActiveImage(props: Props) {
   const { startIndex, images, onClose } = props; 
 
@@ -17,7 +21,7 @@ function ActiveImage(props: Props) {
   const [ ready, setReady ] = useState<boolean>();
   const [ startTouchX, setStartTouchX ] = useState<number>();
   const [ lastTouchX, setLastTouchX ] = useState<number>();
-  const [ touchEndClass, setTouchEndClass ] = useState<string>();  
+  const [ touchEndClass, setTouchEndClass ] = useState<TouchEndClass>();  
   const [ numSideImagesLoaded, setNumSideImagesLoaded ] = useState<number>(0);
 
   useEffect(() => {
@@ -61,14 +65,14 @@ function ActiveImage(props: Props) {
     const allowTouch = numSideImagesLoaded === ((hasNext() ? 1 : 0) + (hasPrevious() ? 1 : 0));
     if (allowTouch) {
       const diff = lastTouchX - startTouchX;
-      if (hasNext() && diff < -20) {
+      if (hasNext() && diff < -minSwipeAmount) {
         setNumSideImagesLoaded(0);
-        setTouchEndClass('finished-next');
+        setTouchEndClass('transition-to-next');
         await waitForTransitionAnimation();
         incrementCurrIndex();
-      } else if (hasPrevious() && diff > 20) {
+      } else if (hasPrevious() && diff > minSwipeAmount) {
         setNumSideImagesLoaded(0);
-        setTouchEndClass('finished-previous');
+        setTouchEndClass('transition-to-previous');
         await waitForTransitionAnimation();
         decrementCurrIndex();
       }
