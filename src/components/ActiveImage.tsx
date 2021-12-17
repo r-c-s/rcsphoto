@@ -58,7 +58,7 @@ function ActiveImage(props: Props) {
   }
 
   const handleTouchEnd = async () => {
-    const allowTouch = numSideImagesLoaded === 2;
+    const allowTouch = numSideImagesLoaded === ((hasNext() ? 1 : 0) + (hasPrevious() ? 1 : 0));
     if (allowTouch) {
       const diff = lastTouchX - startTouchX;
       if (hasNext() && diff < -20) {
