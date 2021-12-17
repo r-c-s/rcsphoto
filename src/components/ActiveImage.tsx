@@ -18,11 +18,10 @@ function ActiveImage(props: Props) {
   const [ startTouchX, setStartTouchX ] = useState<number>();
   const [ lastTouchX, setLastTouchX ] = useState<number>();
   const [ touchEndClass, setTouchEndClass ] = useState<string>();  
-  const [ allowTouch, setAllowTouch ] = useState<boolean>(true);
+  const [ numSideImagesLoaded, setNumSideImagesLoaded ] = useState<number>(0);
 
   useEffect(() => {
     setTouchEndClass(undefined);
-    setAllowTouch(true);
 
     const handleKeyUp = ({ code }) => {
       if (code ===  'ArrowRight') {
@@ -40,14 +39,12 @@ function ActiveImage(props: Props) {
 
   const incrementCurrIndex = () => {
     if (hasNext()) {
-      setReady(false);
       setCurrentIndex(currentIndex + 1);
     }
   }
 
   const decrementCurrIndex = () => {
     if (hasPrevious()) {
-      setReady(false);
       setCurrentIndex(currentIndex - 1);
     }
   }
@@ -61,15 +58,16 @@ function ActiveImage(props: Props) {
   }
 
   const handleTouchEnd = async () => {
+    const allowTouch = numSideImagesLoaded === 2;
     if (allowTouch) {
       const diff = lastTouchX - startTouchX;
       if (hasNext() && diff < -20) {
-        setAllowTouch(false);
+        setNumSideImagesLoaded(0);
         setTouchEndClass('finished-next');
         await waitForTransitionAnimation();
         incrementCurrIndex();
       } else if (hasPrevious() && diff > 20) {
-        setAllowTouch(false);
+        setNumSideImagesLoaded(0);
         setTouchEndClass('finished-previous');
         await waitForTransitionAnimation();
         decrementCurrIndex();
@@ -131,14 +129,14 @@ function ActiveImage(props: Props) {
       {
         isMobile() && hasNext() && 
         <div className="image-container next">
-          <img src={selectBestSize(images[currentIndex + 1])}/>
+          <img src={selectBestSize(images[currentIndex + 1])} onLoad={() => setNumSideImagesLoaded(numSideImagesLoaded + 1)}/>
         </div>
       }
 
       {
         isMobile() && hasPrevious() && 
         <div className="image-container previous">
-          <img src={selectBestSize(images[currentIndex - 1])}/>
+          <img src={selectBestSize(images[currentIndex - 1])} onLoad={() => setNumSideImagesLoaded(numSideImagesLoaded + 1)}/>
         </div>
       }
     </div>
