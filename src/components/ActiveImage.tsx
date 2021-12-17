@@ -79,10 +79,6 @@ function ActiveImage(props: Props) {
     return new Promise(resolve => setTimeout(resolve, 500));
   }
 
-  const isMobile = () => {
-    return window.innerWidth < 512;
-  }
-  
   const selectBestSize = (image: Image) => {
     const size = Math.max(window.innerWidth, window.innerHeight);
     return size >  512 ? image.medium : image.small;
@@ -127,14 +123,14 @@ function ActiveImage(props: Props) {
       </div>
 
       {
-        isMobile() && hasNext() && 
+        hasNext() && 
         <div className="image-container next">
           <img src={selectBestSize(images[currentIndex + 1])} onLoad={() => setNumSideImagesLoaded(numSideImagesLoaded + 1)}/>
         </div>
       }
 
       {
-        isMobile() && hasPrevious() && 
+        hasPrevious() && 
         <div className="image-container previous">
           <img src={selectBestSize(images[currentIndex - 1])} onLoad={() => setNumSideImagesLoaded(numSideImagesLoaded + 1)}/>
         </div>
