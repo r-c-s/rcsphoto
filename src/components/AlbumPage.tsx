@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import RcsPhotoApi, { Album } from '../services/RcsPhotoApi';
+import RcsPhotoApi, { Album, Image } from '../services/RcsPhotoApi';
 import ActiveImage from './ActiveImage';
 import ImageThumb from './ImageThumb';
 import PageHeader from './PageHeader';
@@ -29,6 +29,18 @@ function AlbumPage(props: Props) {
     document.body.classList[activeImageIndex ? 'add' : 'remove']('overflow-hidden');
   }, [ activeImageIndex ]);
 
+  const getMockImages = (): Image[] => {
+    return Array.from(Array(12).keys()).map(i => ({
+      thumb: undefined,
+      small: undefined,
+      medium: undefined,
+      large: undefined,
+      full: undefined
+    }));
+  }
+
+  console.log(getMockImages());
+
   return <div id="album-page">
     <div className="container">
       <PageHeader title={album?.name} subtitle={album ? `${album.images.length} images` : undefined}/>
@@ -41,8 +53,8 @@ function AlbumPage(props: Props) {
       }
       <div className="thumbs-container">
         {
-          album?.images.map((image, i) => 
-            <ImageThumb image={image} onClick={() => setActiveImageIndex(i)}/>
+          (album?.images || getMockImages()).map((image, i) => 
+            <ImageThumb key={i} image={image} onClick={() => setActiveImageIndex(i)}/>
           )
         }
       </div>

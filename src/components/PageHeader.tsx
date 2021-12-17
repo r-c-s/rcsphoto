@@ -11,7 +11,7 @@ function PageHeader(props: Props) {
   return <div className="page-header">
     <h2>
       { title }
-      { !title && <LoadingText chars={20}/> }
+      { !title && <LoadingText chars={25}/> }
     </h2>
     <small>
       { subtitle }

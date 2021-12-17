@@ -13,13 +13,13 @@
     to { background-color: lightgray; }
   }
 
-  .loading {
+  .loading-fade-in-out {
     animation: loading-animation 0.75s;
     animation-iteration-count: infinite;
     animation-direction: alternate-reverse;
   }
 
-  .loading-background {
+  .loading-background-spinner {
     background-image: url("./loading.gif");
     background-position: center center; 
     background-repeat: no-repeat; 
@@ -27,7 +27,7 @@
   }
 
   .loading-text {
-    @extend .loading;
+    @extend .loading-fade-in-out;
     color: transparent;
     display: inline-block;
     line-height: 1em;
@@ -140,7 +140,7 @@
         }
 
         .card-image-container { 
-          @extend .loading;
+          @extend .loading-fade-in-out;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -157,18 +157,28 @@
   }
 
   #album-page {
-    .image-thumb-container {
-      display: inline-block;
-      padding: 10px;
-      text-align: center;  
-      height: fit-content;
-      
-      img {
-        cursor: pointer;
-        max-height: 100%;
-        max-width: 100%;
-      }
-    } 
+    .thumbs-container {
+      @extend .flex-row;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .image-thumb-container {
+        display: inline-block;
+        padding: 10px;
+        text-align: center;  
+        height: fit-content;
+        
+        img {
+          cursor: pointer;
+          max-height: 100%;
+          max-width: 100%;
+        }
+
+        .image-placeholder {
+          @extend .loading-fade-in-out;
+        }
+      } 
+    }
 
     .animate-scale {
       -webkit-transition: -webkit-transform 0.3s ease;
@@ -228,7 +238,7 @@
       height: 100%;
 
       .image-container {
-        @extend .loading-background;
+        @extend .loading-background-spinner;
         @extend .flex-row;
         justify-content: space-between;
         align-items: center;
