@@ -40,12 +40,14 @@ function ActiveImage(props: Props) {
 
   const incrementCurrIndex = () => {
     if (hasNext()) {
+      setReady(false);
       setCurrentIndex(currentIndex + 1);
     }
   }
 
   const decrementCurrIndex = () => {
     if (hasPrevious()) {
+      setReady(false);
       setCurrentIndex(currentIndex - 1);
     }
   }
