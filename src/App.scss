@@ -223,6 +223,8 @@
     .images-container {
       @extend .flex-row;
       position: relative;
+      width: 100%;
+      height: 100%;
 
       .image-container {
         @extend .loading-background;
