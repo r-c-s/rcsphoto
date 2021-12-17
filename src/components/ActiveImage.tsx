@@ -75,6 +75,16 @@ function ActiveImage(props: Props) {
     }
   }
 
+  const handleClickNext = () => {
+    setReady(false); 
+    incrementCurrIndex();
+  }
+
+  const handleClickPrevious = () => {
+    setReady(false); 
+    decrementCurrIndex();
+  }
+
   const waitForTransitionAnimation = () => {
     return new Promise(resolve => setTimeout(resolve, 500));
   }
@@ -109,7 +119,7 @@ function ActiveImage(props: Props) {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}>
         
-        <div className={`nav-icon-container ${!hasPrevious() ? 'visibility-hidden' : ''}`} onClick={() => { setReady(false); decrementCurrIndex(); }}>
+        <div className={`nav-icon-container ${!hasPrevious() ? 'visibility-hidden' : ''}`} onClick={handleClickPrevious}>
           <FontAwesomeIcon className="nav-icon" icon={faChevronLeft}/>
         </div>
 
@@ -117,7 +127,7 @@ function ActiveImage(props: Props) {
           src={selectBestSize(images[currentIndex])} 
           onLoad={() => setReady(true)}/>
 
-        <div className={`nav-icon-container ${!hasNext() ? 'visibility-hidden' : ''}`} onClick={() => { setReady(false); incrementCurrIndex(); }}>
+        <div className={`nav-icon-container ${!hasNext() ? 'visibility-hidden' : ''}`} onClick={handleClickNext}>
           <FontAwesomeIcon className="nav-icon" icon={faChevronRight}/>
         </div>
       </div>
