@@ -24,8 +24,6 @@ export default class App extends React.Component<Props, {}> {
   }
 
   render() {
-    document.body.classList.remove('overflow-hidden');
-
     return <div id="rcs-photo">
       <BrowserRouter>
         <Nav/>
