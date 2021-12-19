@@ -21,8 +21,7 @@ function ImageThumb(props: Props) {
     const width = document.getElementsByClassName("image-placeholder")[0]?.clientWidth;
     if (width) {
       const landscape = 2 * width / 3;
-      const portrait = 4 * width / 3
-      const height = [ landscape, landscape, portrait ][randomInt(0, 2)];
+      const height = landscape;
       setPlaceholderHeight(height);
     }
   });
