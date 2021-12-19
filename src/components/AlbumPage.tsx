@@ -25,10 +25,6 @@ function AlbumPage(props: Props) {
     fetchAndSetAlbum();
   }, [ albumId ]);
 
-  useEffect(() => {
-    document.body.classList[activeImageIndex ? 'add' : 'remove']('overflow-hidden');
-  }, [ activeImageIndex ]);
-
   const getMockImages = (): Image[] => {
     return Array.from(Array(12).keys()).map(i => ({
       thumb: undefined,

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Image } from '../services/RcsPhotoApi';
 import { faChevronLeft, faChevronRight, faTimes, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { createBrowserHistory } from 'history'
 
 interface Props {
   startIndex: number;
@@ -26,11 +25,10 @@ function ActiveImage(props: Props) {
   const [ numSideImagesLoaded, setNumSideImagesLoaded ] = useState<number>(0);
 
   useEffect(() => {
-    const browserHistory = createBrowserHistory();
-    const unblock = browserHistory.block(tx => {
-      onClose();
-      unblock();
-    });
+    document.body.classList.add('overflow-hidden');
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    }
   });
 
   useEffect(() => {
