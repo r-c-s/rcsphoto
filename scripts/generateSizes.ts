@@ -24,9 +24,15 @@ fs.readdir(rcsPhotoFolder, (err, folders) => {
 function resize(directory, sizeDirectory, maxDimension, sourcePath) {
   const destinationPath = directory + '/' + sizeDirectory + '/' + sourcePath.substring(sourcePath.lastIndexOf('/') + 1);
 
+  // if (directory.includes('hawaii_2015') && maxDimension === 256) {
+  //   console.log(`"${sourcePath.substring(sourcePath.lastIndexOf('/') + 1)}",`);
+  // }
+
   if (fs.existsSync(destinationPath)) {
     return;
   }
+  
+  console.log('Creating ' + destinationPath);
 
   im.identify(['-format', '%wx%h', sourcePath], function(err, output) {
     if (err) throw err;

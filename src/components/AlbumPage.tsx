@@ -39,8 +39,6 @@ function AlbumPage(props: Props) {
     }));
   }
 
-  console.log(getMockImages());
-
   return <div id="album-page">
     <div className="container">
       <PageHeader title={album?.name} subtitle={album ? `${album.images.length} images` : undefined}/>
