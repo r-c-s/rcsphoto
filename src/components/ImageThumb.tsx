@@ -13,10 +13,6 @@ function ImageThumb(props: Props) {
   const [ready, setReady] = useState<boolean>();
   const [ placeholderHeight, setPlaceholderHeight ] = useState<number>();
 
-  const randomInt = (min: number, max: number) => {
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }
-
   useEffect(() => {
     const width = document.getElementsByClassName("image-placeholder")[0]?.clientWidth;
     if (width) {
