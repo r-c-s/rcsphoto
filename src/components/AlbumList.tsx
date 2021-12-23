@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import RcsPhotoApi, { Album } from '../services/RcsPhotoApi'
 import AlbumThumb from './AlbumThumb';
 import PageHeader from './PageHeader';
@@ -7,50 +7,40 @@ interface Props {
   service: RcsPhotoApi;
 }
 
-interface State {
-  albums: Album[];
+const getLoadingAlbums = (count: number): Album[] => {
+  return Array.from(Array(count).keys())
+    .map(i => ({
+      id: undefined,
+      sortOrder: undefined,
+      name: undefined,
+      images: undefined,
+      coverImage: undefined
+    }));
 }
 
-class AlbumList extends React.Component<Props, State> {
+function AlbumList(props: Props) {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      albums: this.getLoadingAlbums(6)
+  const [ albums, setAlbums ] = useState<Album[]>(getLoadingAlbums(6));
+
+  useEffect(() => {
+    async function fetchAndSetAlbums() {
+      document.title = 'Albums | RCS Photography';  
+      const albums = await props.service.getAlbums();
+      setAlbums(albums);
     }
-  }
+    fetchAndSetAlbums();
+  }, []);
 
-  componentDidMount = async () => {
-    document.title = 'Albums | RCS Photography';  
-    const albums = await this.props.service.getAlbums();
-    this.setState({ albums });
-  }
-
-  render() {
-    const { albums } = this.state;
-
-    return <div id="album-list">
-      <div className="container">
-        <div className="album-thumbs-container">
-          <PageHeader title="Albums" subtitle={"by Raphael Corrêa"}/>
-          {  
-            albums.map((album, i) => <AlbumThumb key={i} album={album}/>)
-          }
-        </div>
+  return <div id="album-list">
+    <div className="container">
+      <div className="album-thumbs-container">
+        <PageHeader title="Albums" subtitle={"by Raphael Corrêa"}/>
+        {  
+          albums.map((album, i) => <AlbumThumb key={i} album={album}/>)
+        }
       </div>
-    </div>;
-  }
-
-  private readonly getLoadingAlbums = (count: number): Album[] => {
-    return Array.from(Array(count).keys())
-      .map(i => ({
-        id: undefined,
-        sortOrder: undefined,
-        name: undefined,
-        images: undefined,
-        coverImage: undefined
-      }));
-  }
+    </div>
+  </div>;
 }
 
 export default AlbumList;
