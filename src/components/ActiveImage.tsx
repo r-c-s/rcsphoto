@@ -10,7 +10,7 @@ interface Props {
   onClose: () => void;
 }
 
-type TouchEndClass = 'transition-to-previous' | 'transition-to-next';
+type TransitionClass = 'transition-to-previous' | 'transition-to-next';
 
 const minSwipeAmount = 20;
 
@@ -21,7 +21,7 @@ function ActiveImage(props: Props) {
   const [ ready, setReady ] = useState<boolean>();
   const [ startTouchX, setStartTouchX ] = useState<number>();
   const [ lastTouchX, setLastTouchX ] = useState<number>();
-  const [ touchEndClass, setTouchEndClass ] = useState<TouchEndClass>();  
+  const [ transitionClass, setTransitionClass ] = useState<TransitionClass>();  
   const [ numSideImagesLoaded, setNumSideImagesLoaded ] = useState<number>(0);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function ActiveImage(props: Props) {
   });
 
   useEffect(() => {
-    setTouchEndClass(undefined);
+    setTransitionClass(undefined);
 
     const handleKeyUp = ({ code }) => {
       if (code ===  'ArrowRight') {
@@ -74,12 +74,12 @@ function ActiveImage(props: Props) {
       const diff = lastTouchX - startTouchX;
       if (hasNext() && diff < -minSwipeAmount) {
         setNumSideImagesLoaded(0);
-        setTouchEndClass('transition-to-next');
+        setTransitionClass('transition-to-next');
         await waitForTransitionAnimation();
         incrementCurrIndex();
       } else if (hasPrevious() && diff > minSwipeAmount) {
         setNumSideImagesLoaded(0);
-        setTouchEndClass('transition-to-previous');
+        setTransitionClass('transition-to-previous');
         await waitForTransitionAnimation();
         decrementCurrIndex();
       }
@@ -117,7 +117,7 @@ function ActiveImage(props: Props) {
     onTouchStart={handleTouchStart}
     onTouchMove={handleTouchMove}
     onTouchEnd={handleTouchEnd}>
-      
+
     <a className="top-icon-container icon-left" href={images[currentIndex].full} target="_blank">
       <FontAwesomeIcon icon={faDownload}/>
       <small>high-res</small>
@@ -128,7 +128,7 @@ function ActiveImage(props: Props) {
       <small>close</small>
     </div>
 
-    <div className={`images-container ${touchEndClass || ''}`}> 
+    <div className={`images-container ${transitionClass || ''}`}> 
       <div className="image-container">
         
         <div className={`nav-icon-container ${!hasPrevious() ? 'visibility-hidden' : ''}`} onClick={handleClickPrevious}>
