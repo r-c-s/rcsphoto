@@ -113,7 +113,11 @@ function ActiveImage(props: Props) {
     return currentIndex > 0;
   }
 
-  return <div id="active-image">
+  return <div id="active-image"
+    onTouchStart={handleTouchStart}
+    onTouchMove={handleTouchMove}
+    onTouchEnd={handleTouchEnd}>
+      
     <a className="top-icon-container icon-left" href={images[currentIndex].full} target="_blank">
       <FontAwesomeIcon icon={faDownload}/>
       <small>high-res</small>
@@ -125,10 +129,7 @@ function ActiveImage(props: Props) {
     </div>
 
     <div className={`images-container ${touchEndClass || ''}`}> 
-      <div className="image-container"
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}>
+      <div className="image-container">
         
         <div className={`nav-icon-container ${!hasPrevious() ? 'visibility-hidden' : ''}`} onClick={handleClickPrevious}>
           <FontAwesomeIcon className="nav-icon" icon={faChevronLeft}/>
