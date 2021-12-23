@@ -34,7 +34,7 @@ class AlbumList extends React.Component<Props, State> {
         <div className="album-thumbs-container">
           <PageHeader title="Albums" subtitle={"by Raphael Corrêa"}/>
           {  
-            albums.map(album => <AlbumThumb album={album}/>)
+            albums.map((album, i) => <AlbumThumb key={i} album={album}/>)
           }
         </div>
       </div>
